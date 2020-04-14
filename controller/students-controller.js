@@ -56,6 +56,17 @@ class StudentsController {
             }
         })
     }
+
+    static postStudentByEmail(req, res) {        
+        StudentsModel.postStudentByEmail(req.body.email, (err, data) => {
+            if (err) {
+                res.send(err)
+            } else {
+                let email = req.body.email
+                res.render('students-by-email.ejs', {email, data})
+            }
+        })
+    }
 }
 
 module.exports = StudentsController

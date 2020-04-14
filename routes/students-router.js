@@ -7,5 +7,6 @@ router.post('/add', StudentsController.postAdd)
 router.get('/:id/edit', StudentsController.getEdit)
 router.post('/:id/edit', StudentsController.postEdit)
 router.get('/:id/delete', StudentsController.getDelete)
+router.post('/:email', StudentsController.postStudentByEmail)
 
 module.exports = router

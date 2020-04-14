@@ -159,6 +159,18 @@ class StudentsModel {
         })
     }
 
+    static postStudentByEmail(dataBodyEmail, callback) {
+        const queryStudents = `SELECT * FROM students 
+        WHERE email = '${dataBodyEmail}'`
+        pool.query(queryStudents, (err, data) => {
+            if (err) {
+                callback(err, null)   
+            } else {
+                callback(null, data.rows)
+            }
+        })
+
+    }
     // static openFile(callback) {
     //     fs.readFile('./data/students.json', 'utf8', (err, data) => {
     //         if (err) {
