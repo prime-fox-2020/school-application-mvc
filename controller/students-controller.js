@@ -26,23 +26,18 @@ class StudentsController {
     }
 
     static getEdit(req, res) {
-        StudentsModel.getEdit((err, data) => {
+        StudentsModel.getEdit(req.params.id, (err, data) => {
             if (err) {
                 res.send(err)
             } else {
                 let id = Number(req.params.id)
-                let dataById = null
-                for (let i in data) {
-                    if (data[i].id === id) {
-                        dataById = data[i]
-                    }
-                }
-                res.render('edit-students.ejs', {id, dataById})
+                // let dataById = data
+                res.render('edit-students.ejs', {id, data})
             }
         })
     }
 
-    static postEdit(req, res) {
+    static postEdit(req, res) {        
         StudentsModel.postEdit(req.body, req.params.id, (err, data) => {
             if (err) {
                 res.send(err)

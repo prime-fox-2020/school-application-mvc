@@ -84,6 +84,7 @@ class SubjectsModel {
             }
         })
     }
+    
     static openFile(callback) {
         fs.readFile('./data/subjects.json', 'utf8', (err, data) => {
             if (err) {
