@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <title>data</title>
+        <style>
+            table, th, td {
+              border: 1px solid black;
+              border-collapse: collapse;
+            }
+            th, td {
+              padding: 5px;
+              text-align: left;    
+            }
+        </style>
+       
+    </head>
+    <body>
+        
+        <h1 style="text-align: center;">Data data</h1>
+        <p style="text-align: center;"><a href="/students/add">Add student</a></p>
+        <table>
+            <tr>
+                <th>id</th>
+                <th>first_name</th>
+                <th>last_name</th>
+                <th>email</th>
+                <th>gender</th>
+                <th>birth_date</th>
+                <th> Option</th>
+            </tr>
+            <% for(let i=0; i<data.length; i++) { %>
+                <tr>
+                    <td><%= data[i].id %></td>
+                    <td><%= data[i].first_name %></td>
+                    <td><%= data[i].last_name %></td>
+                    <td><%= data[i].email %></td>
+                    <td><%= data[i].gender %></td>
+                    <td><%= data[i].birth_date %></td>
+                    <td>
+                        <button><a href="/students/<%= data[i].id %>/edit">Edit</a></button> || 
+                        <button><a href="/students/<%= data[i].id %>/delete">Delete</a></button>
+                    </td>
+                </tr>  
+            <% } %>
+        </table>
+    </body>
+</html>
