@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Subject</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+
+<body>
+    <h1 style="padding-left: 5%;">Edit Data Subject</h1>
+    <form action="/subject/<%=data.id%>/edit" method="POST" style="padding: 2% 5%;">
+        <div class="form-group">
+            <label for="exampleFormControlInput1">First Name</label>
+            <input name="subject_name" value="<%= data.subject_name%>" type="text" class="form-control"
+                id="exampleFormControlInput1" placeholder="subject name">
+        </div>
+        <button type="submit" class="btn btn-primary">Simpan</button>
+        <a href="/subject" class="btn btn-outline-success my-2 my-sm-0" type="submit">Batal</a>
+    </form>
+</body>
+
+</html>
