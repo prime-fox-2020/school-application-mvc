@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>edit teachers</title>
+</head>
+<body>
+    <h1>Edit Teacher</h1>
+    
+    <br>
+    <button><a href="/teachers">Back to Teachers Data</a></button>   
+    <br><br>
+    
+    <form action="/teachers/<%=id%>/edit" method="post">
+        <label>First Name:</label><br>
+        <input type="text" name="firstname" placeholder="<%=dataById.first_name%>"> <br><br>
+        
+        <label>Last Name:</label><br>
+        <input type="text" name="lastname" placeholder="<%=dataById.last_name%>"> <br><br>
+        
+        <label>Email:</label><br>
+        <input type="text" name="email" placeholder="<%=dataById.email%>"> <br><br>
+        
+        <label>Gender:</label><br>
+        <input type="text" name="gender" placeholder="<%=dataById.gender%>"> <br><br>
+        
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

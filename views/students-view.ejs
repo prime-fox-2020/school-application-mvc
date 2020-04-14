@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>students</title>
+</head>
+<body>
+    <h1>Data Students</h1>
+    <button><a href="/students/add">Add Students</a></button><br><br>
+    <table border="1">
+        <thead>
+            <tr>
+                <td>ID</td>
+                <td>FIRST NAME</td>
+                <td>LAST NAME</td>
+                <td>EMAIL</td>
+                <td>GENDER</td>
+                <td>BIRTH DATE</td>
+                <td colspan="2">OPTIONS</td>
+            </tr>
+        </thead>
+        <tbody>
+            <%if(data) {%>
+                <%for(let i = 0; i < data.length; i++) {%>
+                    <tr>
+                        <td><%= data[i].id %></td>
+                        <td><%= data[i].first_name %></td>
+                        <td><%= data[i].last_name %></td>
+                        <td><%= data[i].email %></td>
+                        <td><%= data[i].gender %></td>
+                        <td><%= data[i].birth_date %></td>
+                        <td><button><a href="/students/<%= data[i].id %>/edit">Edit</a></button></td>
+                        <td><button><a href="/students/<%= data[i].id %>/delete">Delete</a></button></td>
+                    </tr>
+                <%}%>
+            <%}%>
+        </tbody>
+    </table>
+
+    <br><br>
+    <button><a href="/">Back to Home</a></button>
+</body>
+</html>
