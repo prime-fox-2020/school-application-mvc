@@ -5,8 +5,7 @@ const {Pool} = require('pg')
 const pool = new Pool({ user: 'node', host: 'localhost', database: 'sapmvc', password: 'hacktiv8tugas', port: 5432 })
 
 class Teachers {
-    constructor(id, first_name, last_name, email, gender) {
-        this.id = id
+    constructor(first_name, last_name, email, gender) {
         this.first_name = first_name
         this.last_name = last_name
         this.email = email
@@ -15,8 +14,7 @@ class Teachers {
 }
 
 class Students {
-    constructor(id, first_name, last_name, email, gender, birth_date) {
-        this.id = id
+    constructor(first_name, last_name, email, gender, birth_date) {
         this.first_name = first_name
         this.last_name = last_name
         this.email = email
@@ -26,8 +24,7 @@ class Students {
 }
 
 class Subjects {
-    constructor(id, subject_name) {
-        this.id = id
+    constructor(subject_name) {
         this.subject_name = subject_name
     }
 }
@@ -75,9 +72,9 @@ class Backend {
 
         const column = () => {
             switch (tableSelection) {
-                case 'teachers' : return ['first_name', 'last_name', 'email', 'gender'].toString(); break;
-                case 'students' : return ['first_name', 'last_name', 'email', 'gender', 'birth_date'].toString(); break;
-                case 'subjects' : return 'subject_name'; break;
+                case 'teachers' : return Object.keys(new Teachers());
+                case 'students' : return Object.keys(new Students());
+                case 'subjects' : return Object.keys(new Subjects());
             }
         }
 
