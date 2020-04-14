@@ -6,7 +6,7 @@ fs.readFile('./db/students.json', 'utf8', (err, data) => {
     throw err
   } else {
     let queryStudent = `
-      INSERT INTO students (firstName, lastName, gender, email)
+      INSERT INTO students (first_name, last_name, gender, email)
       VALUES 
     `
     queryStudent += JSON.parse(data).map(el => `('${el.first_name}', '${el.last_name}', '${el.gender}', '${el.email}')`).join(', ')
@@ -25,7 +25,7 @@ fs.readFile('./db/teachers.json', 'utf8', (err, data) => {
     throw err
   } else {
     let queryTeachers = `
-  INSERT INTO teachers (firstName, lastName, gender, email)
+  INSERT INTO teachers (first_name, last_name, gender, email)
   VALUES 
 `
     queryTeachers += JSON.parse(data).map(el => `('${el.first_name}', '${el.last_name}', '${el.gender}', '${el.email}')`).join(', ')
@@ -45,7 +45,7 @@ fs.readFile('./db/subjects.json', 'utf8', (err, data) => {
     throw err
   } else {
     let querySubjects = `
-  INSERT INTO subjects (subjectName)
+  INSERT INTO subjects (subject_name)
   VALUES 
 `
     querySubjects += JSON.parse(data).map(el => `('${el.subject_name}')`).join(', ')

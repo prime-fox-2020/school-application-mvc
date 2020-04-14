@@ -4,9 +4,9 @@ const StudentController = require('../controllers/StudentController')
 const router = express.Router()
 
 router
-  .get('/', StudentController.findAll)
+  .get('/', StudentController.getStudents)
 
 router
-  .get('/add', StudentController.createOne)
+  .get('/add', StudentController.getAdd)
 
 module.exports = router

@@ -2,18 +2,18 @@ const StudentModel = require('../models/StudentModel')
 
 class StudentController {
 
-  static findAll(req, res) {
+  static getStudents(req, res) {
     StudentModel.findAll((err, data) => {
       if (err) {
-        res.render('public/404', {errMsg: 'Cannot connect database'})
+        res.render('public/404', {errMsg: err})
       } else {
-        res.render('student/showAll', {data})
+        res.render('student', {data})
       }
     })
   }
 
-  static createOne(req, res) {
-    res.render('404', { errMsg: '404 - Page not found!' })
+  static getAdd(req, res) {
+    res.render('student/add')
   }
 }
 
