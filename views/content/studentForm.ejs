@@ -4,8 +4,6 @@ let Object = {}, editing = false;
 
 if (data) {
     Object = data[0], editing = true;
-} else {
-    editing = false;
 }
 %>
 <div class="container">
@@ -13,24 +11,34 @@ if (data) {
     <% if (editing) {%>
     <input type="text" name="id" value="<%= Object.id %>" hidden>
     <% } %>
-    <label for="fname">First Name</label>
-    <input type="text" id="fname" name="first_name" placeholder="Student first name.." value="<%= editing == true ? Object.first_name : '' %>">
+    <div class="form-group">
+      <label for="fname">First Name</label>
+      <input type="text" class="form-control" id="fname" name="first_name" placeholder="Student first name.." value="<%= editing == true ? Object.first_name : '' %>">
+    </div>
 
-    <label for="lname">Last Name</label>
-    <input type="text" id="lname" name="last_name" placeholder="Student last name.." value="<%= editing == true ? Object.last_name : '' %>">
+    <div class="form-group">
+      <label for="lname">Last Name</label>
+      <input type="text" class="form-control" id="lname" name="last_name" placeholder="Student last name.." value="<%= editing == true ? Object.last_name : '' %>">
+    </div>
 
-    <label for="lname">Email</label>
-    <input type="text" id="email" name="email" placeholder="Student email.." value="<%= editing == true ? Object.email : '' %>">
+    <div class="form-group">
+      <label for="lname">Email</label>
+      <input type="text" class="form-control" id="email" name="email" placeholder="Student email.." value="<%= editing == true ? Object.email : '' %>">
+    </div>
 
-    <label for="gender">Gender</label>
-    <select id="gender" name="gender">
-      <option value="Male" <% if (editing == true && Object.gender.toLowerCase() == 'male') {%>selected<%}%>>Male</option>
-      <option value="Female" <% if (editing == true && Object.gender.toLowerCase() == 'female') {%>selected<%}%>>Female</option>
-    </select>
+    <div class="form-group">
+      <label for="gender">Gender</label>
+      <select class="form-control" id="gender" name="gender">
+        <option value="Male" <% if (editing == true && Object.gender.toLowerCase() == 'male') {%>selected<%}%>>Male</option>
+        <option value="Female" <% if (editing == true && Object.gender.toLowerCase() == 'female') {%>selected<%}%>>Female</option>
+      </select>
+    </div>
 
-    <label for="lname">Birth Date</label>
-    <input type="text" id="bdate" name="birth_date" placeholder="Student Birth Date (Format : 01 January 2020)" value="<%= editing == true ? Object.birth_date : '' %>">
+    <div class="form-group">
+      <label for="lname">Birth Date</label>
+      <input type="text" id="bdate" name="birth_date" placeholder="Student Birth Date (Format : 01 January 2020)" value="<%= editing == true ? Object.birth_date : '' %>">
+    </div>
 
-    <input type="submit" value="Submit">
+    <input type="submit" value="Submit" class="btn btn-outline-success">
   </form>
 </div>
