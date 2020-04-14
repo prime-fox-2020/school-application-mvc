@@ -28,8 +28,8 @@ routes.post('/subjects/add', Subjects.post)
 /* 
 * EDIT POST ROUTING
 */
-routes.post('/students/:id/edit', Students.post)
-routes.post('/teachers/:id/edit', Teachers.post)
+routes.post('/students/update', Students.post)
+routes.post('/teachers/update', Teachers.post)
 
 routes.get('*', (request, response) => {
     response.status(404).render('404')
