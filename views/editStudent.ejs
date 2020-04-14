@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <style>
+        body {
+            margin: auto;
+            width: 50%;
+            border: 3px solid green;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="text-center">Edit Student</h1><br>
+    <h3 class="text-center"><a href="./students"> Show all data</a></h3>
+
+    <form action="" method="post">
+        <br><label>First name :</label><br>
+        <input type="text" name="first_name" value="<%= dataById.first_name %>"  class="form-control" required autofocus><br>
+
+        <label>Last name :</label><br>
+        <input type="text" name="last_name" value="<%= dataById.last_name %>"  class="form-control" required><br>
+
+        <label>Email :</label><br>
+        <input type="text" name="email" value="<%= dataById.email %>"  class="form-control" required><br>
+
+        <label for="">Gender</label><br>
+        <input type="radio" name="gender" value="male" required> Male<br>
+        <input type="radio" name="gender" value="female"> Female<br><br>
+
+        <label>Birth Date :</label><br>
+        <input type="text" name="birth_date" placeholder="Ex : 15 Februari 1990" value="<%= dataById.birth_date %>" class="form-control"
+            required><br>
+
+        <button class="btn btn-primary" type="submit">Edit</button>
+    </form>
+</body>
+
+</html>
