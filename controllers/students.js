@@ -6,7 +6,7 @@ class ControllerStudents {
             if (err) {
                 res.send(err)
             } else {
-                res.render("students", { students: data })
+                res.render("students", { students: data})
             }
         })
     }
@@ -16,7 +16,7 @@ class ControllerStudents {
     }
 
     static add(req, res) {
-        StudentModel.save(req.body, (err, data) => {
+        StudentModel.add(req.body, (err, data) => {
             if (err) {
                 res.send(err)
             } else {

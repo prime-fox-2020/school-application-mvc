@@ -1,5 +1,5 @@
-const fs = require('fs')
-
+// const fs = require('fs')
+const pool = require('../config/connection')
 class SubjectModel {
     constructor(id, subject_name){
         this.id = id
@@ -7,34 +7,23 @@ class SubjectModel {
     }
     
     static getSubjects(callback){
-        fs.readFile('./data/subjects.json', 'utf-8', (err, data) => {
-            if (err) {
+        pool.query(`SELECT * FROM subjects ORDER BY id ASC`, (err, data) => {
+            if(err){
                 callback(err, null)
-            } else {
-                let raw = JSON.parse(data)
-                let temp = []
-                raw.forEach(el => {
-                    temp.push(new SubjectModel(el.id, el.subject_name))
-                });
-                callback(null, temp)
+            }
+            else{
+                callback(null, data.rows)
             }
         })
     }
 
     static getId(id, callback){
-        fs.readFile('./data/subjects.json', 'utf8', (err, data) => {
+        pool.query(`SELECT * FROM subjects WHERE id = ${id}`, (err, res) => {
             if(err){
                 callback(err, null)
-            } else {
-                data = JSON.parse(data)
-                let result = []
-    
-                for(let i = 0; i < data.length; i++){
-                    if(Number(id) === data[i].id){
-                        result.push(data[i])
-                    }
-                }
-                callback(null, result)
+            }
+            else{
+                callback(null, res.rows)
             }
         })
     }

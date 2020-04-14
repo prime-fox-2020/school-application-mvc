@@ -1,8 +1,6 @@
 const router = require("express").Router()
 const ControllerStudents = require('../Controllers/students')
 
-const fs = require('fs')
-
 router.get('/', ControllerStudents.get)
 
 router.get('/add', ControllerStudents.create)

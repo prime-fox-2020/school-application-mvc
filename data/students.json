@@ -30,13 +30,5 @@
         "email": "rikaristi@sekolah.id",
         "gender": "female",
         "birth_date": "3 Januari 2005"
-    },
-    {
-        "id": 5,
-        "first_name": "Fahrul",
-        "last_name": "Muhammad Noer",
-        "email": "fahrulnoer17@gmail.com",
-        "gender": "male",
-        "birth_date": "9 February 1999"
     }
 ]

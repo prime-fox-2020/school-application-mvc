@@ -1,12 +1,8 @@
 const {Router} = require('express')
 const router = Router()
+const HomeController = require('../controllers/home.js')
 
-const fs = require ('fs')
-
-
-router.get('/', function (req, res){
-    res.render ('index')
-})
+router.get('/', HomeController.getHome)
 
 const students = require('./students')
 router.use('/students', students)
