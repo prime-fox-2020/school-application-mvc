@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>teachers page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>School App</title>
+  <body>
+    <h1>List of teachers</h1>
+    <table class="table table-dark">
+      <thead>
+      <tr>
+        <th >ID</th>
+        <th >First_name</th>
+        <th >Last_name</th>
+        <th >Email</th>
+        <th >Gender</th>
+      </tr>
+    </thead>
+      <% for(let i = 0; i < data.length; i++) {%>
+        <tr>
+          <th ><%=data[i].id%></th>
+          <th ><%=data[i].first_name%></th>
+          <th ><%=data[i].last_name%></th>
+          <th ><%=data[i].email%></th>
+          <th ><%=data[i].gender%></th>
+        </tr>
+      <% } %>
+    </table>
+    <button type="button" class="btn btn-primary"  >Back to menu!</button>
+  </body>
+</html>
