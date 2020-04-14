@@ -187,7 +187,9 @@ class StudentModel {
 
 		pool.query(query, params, (err, data) => {
 			if (err) callback(err, null);
-			else callback(null, data.rows[0]);
+			else {
+        console.log(data.rows[0])
+        callback(null, [data.rows[0]]);}
 		});
 		// this.readFileJson((err,data)=> {
 		//     if(err){

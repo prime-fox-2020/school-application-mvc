@@ -1,4 +1,5 @@
 const fs = require('fs')
+const pool = require('../config/sql');
 
 
 class Model{
@@ -14,30 +15,26 @@ class Model{
   }
 
   static getTeachers(callback){
-  this.read((err,data)=>{
-    if(err){
-      callback(err,null)
-    }else{
-       callback(null, data)
-     
-    }
-  })
+    const query = `SELECT * FROM teachers ORDER BY id`;
+
+		pool.query(query, (err, data) => {
+			if (err) callback(err, null);
+			else callback(null, data.rows);
+		});
   }
 
   static getTeacherId(teacherId, callback){
-    this.read((err,data)=>{
-      if(err){
-      callback(err,null)
-      }else{
-        let teacherList = []
-        data.forEach(item =>{
-          if(item.id == teacherId){
-            teacherList.push(item)
-          }
-        })
-         callback(null, teacherList)
-      }
-    })
+    const query = `SELECT * FROM teachers WHERE id = $1`;
+
+		const params = [ teacherId ];
+
+		pool.query(query, params, (err, data) => {
+			if (err) callback(err, null);
+			else {
+        
+				callback(null, [data.rows[0]]);
+			}
+		});
   }
 }
 

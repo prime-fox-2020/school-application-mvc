@@ -30,6 +30,7 @@ class StudentController {
 			if (err) {
 				res.render(err);
 			} else {
+        
 				res.render('studentsEdit', { data });
 			}
 		});
@@ -44,10 +45,10 @@ class StudentController {
 		};
 		StudentModel.editStudentPost(id, req.body, (err, data) => {
 			if (err) {
-				console.log('--------------------------');
+				
 				res.render(err);
 			} else {
-        console.log('aaaaaaaaaaaaaaaaaaaaaaa');
+        
 				res.redirect('/students');
 			}
 		});
@@ -68,6 +69,7 @@ class StudentController {
 			if (err) {
 				res.render(err);
 			} else {
+        console.log(data)
 				res.render('students', { data });
 			}
 		});

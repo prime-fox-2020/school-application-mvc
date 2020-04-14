@@ -18,7 +18,7 @@ class SubjectsController{
      if(err){
        res.render(err)
      }else{
-       
+       console.log(data)
        res.render('subjects', {data})
      }
    })

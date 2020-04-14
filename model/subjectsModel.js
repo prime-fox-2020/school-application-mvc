@@ -1,45 +1,43 @@
-const fs = require('fs')
+const fs = require('fs');
+const pool = require('../config/sql');
 
+class Model {
+	static getSubjects(callback) {
+		const query = `SELECT * FROM subjects ORDER BY id`;
 
-class Model{
-  static read(callback){
-    fs.readFile('./subjects.json', 'utf8', (err,data)=>{
-      if(err){
-        callback(err, null)
-      }else{
-        callback(null,JSON.parse(data))
-        // console.log(data)
-      }
-    })
-  }
+		pool.query(query, (err, data) => {
+			if (err) callback(err, null);
+			else callback(null, data.rows);
+		});
+	}
 
-  static getSubjects(callback){
-  this.read((err,data)=>{
-    if(err){
-      callback(err,null)
-    }else{
-       callback(null, data)
-     
-    }
-  })
-  }
+	static getSubjectsId(subjectsId, callback) {
+		// this.read((err,data)=>{
+		//   if(err){
+		//   callback(err,null)
+		//   }else{
+		//     let subjectsList = []
+		//     data.forEach(item =>{
+		//       if(item.id == subjectsId){
+		//         subjectsList.push(item)
+		//       }
+		//     })
+		//      callback(null, subjectsList)
+		//   }
+		// })
+		const query = `SELECT * FROM subjects WHERE id = $1`;
 
-  static getSubjectsId(subjectsId, callback){
-    this.read((err,data)=>{
-      if(err){
-      callback(err,null)
-      }else{
-        let subjectsList = []
-        data.forEach(item =>{
-          if(item.id == subjectsId){
-            subjectsList.push(item)
-          }
-        })
-         callback(null, subjectsList)
-      }
-    })
-  }
+		const params = [ subjectsId ];
+
+		pool.query(query, params, (err, data) => {
+			if (err) callback(err, null);
+			else {
+        
+				callback(null, [data.rows[0]]);
+			}
+		});
+	}
 }
 
 // Model.getTeacherId()
-module.exports = Model
+module.exports = Model;
