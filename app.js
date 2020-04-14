@@ -1,13 +1,12 @@
-const express = require('express');
-const app = express();
+const express = require('express')
+const app = express()
+const port = 3000
+const route = require('./routes')
 
-const route = require('./routes');
-const port = 3000;
-
-app.set('view engine','ejs');
-app.use(express.urlencoded({extended:true}))
+app.set('view engine', 'ejs')
+app.use(express.urlencoded({ extended: true }))
 app.use('/', route)
 
-app.listen(port, ()=>{
-    console.log("This app is running at port : ",port)
+app.listen(port, () => {
+    console.log("This app is running at ", port)
 })
