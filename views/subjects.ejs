@@ -27,20 +27,22 @@
     </div>
   </nav>
 
-  <h1>Subjects Data</h1>
-  <a href="/" type="button" class="btn btn-secondary">Back to home</a>
-  <br><br>
-  <table class="table table-striped">
-    <tr>
-      <th>Id</th>
-      <th>Subject Name</th>
-    </tr>
-    <% data.forEach(dat => { %>
+  <div class="container">
+    <h1>Subjects Data</h1>
+    <a href="/" type="button" class="btn btn-secondary">Back to home</a>
+    <br><br>
+    <table class="table table-striped">
       <tr>
-        <td><%= dat.id %></td>
-        <td><%= dat.subject_name %></td>
+        <th>Id</th>
+        <th>Subject Name</th>
       </tr>
-    <% }) %>
-  </table>
+      <% data.forEach(dat => { %>
+        <tr>
+          <td><%= dat.id %></td>
+          <td><%= dat.subject_name %></td>
+        </tr>
+      <% }) %>
+    </table>
+  </div>
 </body>
 </html>

@@ -6,7 +6,7 @@ class StudentsController {
       if (err) {
         res.render('error');
       } else {
-        res.render('students', {data});
+        res.render('students', {data, error: false});
       }
     })
   }
@@ -17,7 +17,9 @@ class StudentsController {
         res.render('error')
       } else {
         data = data.filter(dat => dat.email == req.params.email);
-        res.render('students', {data})
+        let error = false;
+        if (!data.length) error = true;
+        res.render('students', {data, error})
       }
     })
   }
@@ -75,6 +77,10 @@ class StudentsController {
         res.redirect('/students');
       }
     })
+  }
+
+  static searchByEmail(req, res) {
+    res.redirect(`/students/${req.body.search}`);
   }
 }
 

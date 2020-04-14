@@ -20,9 +20,15 @@ router.get('/students/:id/edit', StudentsController.editDataGet);
 router.post('/students/:id/edit', StudentsController.editDataPost);
 router.get('/students/:id/delete', StudentsController.deleteData);
 router.get('/students/:email', StudentsController.getDataByEmail);
+router.post('/students*', StudentsController.searchByEmail);
 
 //subjects
 router.get('/subjects', SubjectsController.getData);
 router.get('/subjects/:id', SubjectsController.getDataById);
+
+//error
+router.get('/*', (req, res) => {
+  res.render('error');
+})
 
 module.exports = router;
