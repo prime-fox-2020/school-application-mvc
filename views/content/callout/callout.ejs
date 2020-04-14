@@ -1,0 +1,7 @@
+    <% if (callout) { 
+        let calloutMessage = `You are successfully ${callout.action} 1 ${activeMenu.substr(0, activeMenu.length-1)}`;
+    %>
+    <div class="alert alert-success" role="alert">
+    <%= calloutMessage %>
+    </div>
+    <% } %>
