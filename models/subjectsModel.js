@@ -1,12 +1,22 @@
+const pool = require('../config/connection')
 const fs = require('fs')
 
 class SubjectsModel{
     static getSubjects(callback) {
-        this.read((err, data) => {
+        // this.read((err, data) => {
+        //     if(err){
+        //         callback(err)
+        //     } else {
+        //         callback(null, data)
+        //     }
+        // })
+
+        const querySelect = `SELECT * FROM subjects ORDER BY id asc `
+        pool.query(querySelect, (err, data) => {
             if(err){
-                callback(err)
+                callback(err, null)
             } else {
-                callback(null, data)
+                callback(null, data.rows)
             }
         })
     }
@@ -22,21 +32,29 @@ class SubjectsModel{
     }
 
     static idSubjects(id, callback) {
-        this.getSubjects((err, data) => {
+        // this.getSubjects((err, data) => {
+        //     if(err) {
+        //         callback(err)
+        //     } else {
+        //         let result = []
+
+        //         for(let i=0; i<data.length; i++){
+        //             if(Number(id) === data[i].id) {
+        //                 result.push(data[i])
+        //             }
+        //         }
+
+        //         callback(null, result)
+        //     }
+        // })
+        const queryId = `SELECT * FROM subjects where id = '${id}'`
+        pool.query(queryId, (err, res) => {
             if(err) {
                 callback(err)
             } else {
-                let result = []
-
-                for(let i=0; i<data.length; i++){
-                    if(Number(id) === data[i].id) {
-                        result.push(data[i])
-                    }
-                }
-
-                callback(null, result)
+                callback(null, res.rows)
             }
-        })
+        }) 
     }
 }
 
