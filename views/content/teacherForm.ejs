@@ -8,7 +8,7 @@ if (data) {
 
 <div class="container">
   <h3><% if (data) {%>Edit Teacher <% } else { %>New Teacher<% } %></h3>
-  <form action="<%= editing == true ? `/teachers/${Object.id}/edit` : `/teachers/add` %>" method="POST">
+  <form action="<%= editing == true ? `/teachers/update?id=${Object.id}` : `/teachers/add` %>" method="POST">
     <% if (editing) {%>
       <input type="text" name="id" value="<%= Object.id %>" hidden>
       <% } %>

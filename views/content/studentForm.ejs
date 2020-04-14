@@ -7,7 +7,7 @@
       Object = data[0], editing = true;
   }
   %>
-  <form action="<%= editing == true ? `/students/${Object.id}/edit` : `/students/add` %>" method="POST">
+  <form action="<%= editing == true ? `/students/update?id=${Object.id}` : `/students/add` %>" method="POST">
     <% if (editing) {%>
     <input type="text" name="id" value="<%= Object.id %>" hidden>
     <% } %>
@@ -36,7 +36,7 @@
 
     <div class="form-group">
       <label for="lname">Birth Date</label>
-      <input type="text" id="bdate" name="birth_date" placeholder="Student Birth Date (Format : 01 January 2020)" value="<%= editing == true ? Object.birth_date : '' %>">
+      <input type="text" class="form-control" id="bdate" name="birth_date" placeholder="Student Birth Date (Format : DD/MM/YYYY)" value="<%= editing == true ? Object.birth_date : '' %>">
     </div>
 
     <input type="submit" value="Submit" class="btn btn-outline-success">
