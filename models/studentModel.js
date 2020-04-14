@@ -1,117 +1,58 @@
-const fs = require('fs')
+const pool = require('../config/connection')
 
 class StudentModel {
     static getStudents(callback) {
-        this.open((err, data) => {
-            if (err) {
-                callback(err, null)
-            } else {
-                callback(null, data)
-            }
+        const query = `
+        SELECT * FROM student ORDER BY id asc
+        `
+        pool.query(query, (err, results) => {
+            if (err) callback(err, null)
+            else callback(null, results.rows)
         })
     }
 
-    static addPost(addStudent, callback){
-        this.open((err, data) => {
-            if(err){
-                callback(err, null)
-            }else {
-                data.forEach(element => {
-                    if(element.id === addStudent.id){
-                        element.first_name = updateStudent.first_name
-                    }
-                })
-                this.save(data, (err) => {
-                    if(err){
-                        callback(err, null)
-                    }else {
-                        callback(null, `Student with id${updateStudent.id} edited`)
-                    }
-                })
-            }
+    static addPost(req, callback) {
+        const query = `
+        INSERT INTO student (first_name, last_name, email, gender, birth_date) VALUES ($1, $2, $3, $4, $5)        
+        `
+        const params = [req.body.fname, req.body.lname, req.body.email, req.body.gender, req.body.birthdate];
+        pool.query(query, params, err => {
+            if (err) callback(err, null)
+            else callback(null, `Student berhasil ditambahkan`)
         })
     }
 
-    //fungsi baca file
-    static open(callback) {
-        fs.readFile('./students.json', 'utf8', (err, data) => {
-            if (err) {
-                callback(err, null)
-            } else {
-                callback(null, JSON.parse(data))
-            }
-        })
-    }
 
-    //fungsi simpan
-    static save(data, callback) {
-        fs.writeFile('./students.json', JSON.stringify(data, null, 2), 'utf8', (err) => {
-            if (err) {
-                callback(err)
-            } else {
-                callback(null)
-            }
-        })
-    }
 
     static editGet(studentid, callback) {
-        this.open((err, data) => {
-            if (err) {
-                callback(err, null)
-            } else {
-                let student = {}
-
-                data.forEach(element => {
-                    if (studentid === element.id) {
-                        student = element
-                    }
-                })
-                callback(null, student)
-            }
+        const query = `
+        SELECT * FROM student WHERE id = $1
+        `
+        const params = [studentid]
+        pool.query(query, params, (err, results) => {
+            if (err) callback(err, null)
+            else callback(null, results.rows[0])
         })
     }
 
-    static editPost(updateStudent, callback){
-        this.open((err, data) => {
-            if(err){
-                callback(err, null)
-            }else {
-                data.forEach(element => {
-                    if(element.id === updateStudent.id){
-                        element.first_name = updateStudent.first_name
-                    }
-                })
-                this.save(data, (err) => {
-                    if(err){
-                        callback(err, null)
-                    }else {
-                        callback(null, `Student with id${updateStudent.id} edited`)
-                    }
-                })
-            }
-        })
+    static editPost(req, callback) {
+        const query = 'UPDATE student SET first_name = $1, last_name = $2, email = $3, gender = $4, birth_date = $5 WHERE id = $6';
+        const params = [req.body.first_name, req.body.last_name, req.body.email, req.body.gender, req.body.birth_date, req.params.id];
+        pool.query(query, params, (err) => {
+            if (err) callback(err, null);
+            else callback(null, `Student telah diedit`);
+        });
     }
 
     static delete(studentID, callback) {
-        this.open((err, data) => {
-            if (err) {
-                callback(err, null)
-            } else {
-                const updateStudent = []
+        const query = `
+        DELETE FROM student WHERE id = $1
+        `
+        const params = [studentID]
 
-                data.forEach(element => {
-                    if (studentID != element.id) {
-                        updateStudent.push(element)
-                    }
-                })
-                this.save(updateStudent, (err) => {
-                    if (err) {
-                        callback(err, null)
-                    } else {
-                        callback(null, `Student with id ${studentID} deleted`)
-                    }
-                })
-            }
+        pool.query(query, params, err => {
+            if (err) callback(err, null)
+            else callback(null, `Student telah dihapus`)
         })
     }
 }
