@@ -1,3 +1,5 @@
+'use strict'
+
 const fs = require('fs');
 const {Pool} = require('pg')
 const pool = new Pool({ user: 'node', host: 'localhost', database: 'sapmvc', password: 'hacktiv8tugas', port: 5432 })
@@ -65,7 +67,7 @@ class Backend {
 
     })
 
-    static newData = (tableSelection, content) => {
+    static newData = (tableSelection, content) => new Promise((resolve, reject) => {
 
         /* 
         * Add new data goes here
@@ -73,14 +75,14 @@ class Backend {
 
         const column = () => {
             switch (tableSelection) {
-                case 'teachers' : ['first_name', 'last_name', 'email', 'gender'].toString(); break;
-                case 'students' : ['first_name', 'last_name', 'email', 'gender', 'birth_date'].toString(); break;
-                case 'subject' : 'subject_name'; break;
+                case 'teachers' : return ['first_name', 'last_name', 'email', 'gender'].toString(); break;
+                case 'students' : return ['first_name', 'last_name', 'email', 'gender', 'birth_date'].toString(); break;
+                case 'subjects' : return 'subject_name'; break;
             }
         }
 
         const expandValue = () => {
-            let value;
+            let value = '';
             for (let i = 1; i <= Object.values(content).length; i++) {
                 value += `$${i}, `
             }
@@ -94,13 +96,15 @@ class Backend {
         }
 
         this.executeQuery(SQL)
-            .then(() => `/${tableSelection}`)
-            .catch(err => err)
-    }
+            .then(() => resolve(`/${tableSelection}?action=Register&succeeded=true`))
+            .catch(err => reject(err))
+
+    })
 
     static delete = (tableSelection, id) => new Promise((resolve, reject) => {
 
         let SQL = `DELETE FROM ${tableSelection} WHERE id = ${Number(id)}`;
+
         this.executeQuery(SQL)
             .then(() => resolve(`/${tableSelection}?action=delete&id=${id}&succeeded=true`))
             .catch(err => reject(err))
@@ -110,9 +114,9 @@ class Backend {
     static update = (tableSelection, content) => new Promise((resolve, reject) => {
 
         const columnToUpdate = () => {
-            let cache;
+            let cache = '';
             Object.keys(content).forEach(el => {
-                if (content.hasOwnProperty(el)) {
+                if (content.hasOwnProperty(el) && el !== 'id') {
                     cache += `${el} = '${content[el]}', `
                 }
             })
@@ -120,7 +124,8 @@ class Backend {
             return cache.trim().replace(/,$/g, '');
         }
 
-        let SQL = `UPDATE ${tableSelection} SET ( ${columnToUpdate()} ) WHERE id = ${content.id};`;
+        let SQL = `UPDATE ${tableSelection} SET ${columnToUpdate()} WHERE id = ${content.id};`;
+
         this.executeQuery(SQL)
             .then(() => resolve(`/${tableSelection}?action=update&id=${content.id}&succeeded=true`))
             .catch(err => reject(err))
