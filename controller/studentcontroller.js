@@ -19,7 +19,6 @@ class Controller {
             if(err){
                 res.send(err)
             }else{
-                console.log(data[0].id)
                 res.render('studentedit',{data})
             }
 
@@ -28,11 +27,12 @@ class Controller {
 
     static change(req,res){
         const body = req.body
+        console.log(body)
         Students.change(body,(err,data)=>{
             if(err){
                 res.send(err)
             }else{
-                res.render('students',{data})
+                res.redirect('/students')
             }
 
         })
@@ -45,7 +45,7 @@ class Controller {
             if(err){
                 res.send(err)
             }else{
-                res.render('students',{data})
+                res.redirect('/students')
             }
             
         }) 
@@ -58,11 +58,13 @@ class Controller {
 
     static add(req,res){
         const body = req.body
+        console.log(body)
         Students.add(body,(err,data)=>{
             if(err){
                 res.send(err)
             }else{
-                res.render('students',{data})
+                console.log(data)
+                res.redirect('/students')
             }
 
         })

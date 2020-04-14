@@ -6,7 +6,7 @@ const subjectcontroller = require('../controller/subjectcontroller')
 const teachercontroller = require('../controller/teachercontroller')
 
 route.get('/', (req,res)=>{
-    res.send('ini home lainnya di /students, /subjects, /teachers')
+    res.render('home')
 })
 
 
