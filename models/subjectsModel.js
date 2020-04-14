@@ -20,6 +20,24 @@ class SubjectsModel{
             }
         })
     }
+
+    static idSubjects(id, callback) {
+        this.getSubjects((err, data) => {
+            if(err) {
+                callback(err)
+            } else {
+                let result = []
+
+                for(let i=0; i<data.length; i++){
+                    if(Number(id) === data[i].id) {
+                        result.push(data[i])
+                    }
+                }
+
+                callback(null, result)
+            }
+        })
+    }
 }
 
 module.exports = SubjectsModel

@@ -5,7 +5,7 @@
       "last_name": "Santoso",
       "email": "jokosantoso@sekolah.id",
       "gender": "male",
-      "birth_date": ""
+      "birth_date": "2020-04-13"
    },
    {
       "id": 2,
@@ -29,6 +29,6 @@
       "last_name": "Nurhayatis",
       "email": "sitinurhayati@sekolah.id",
       "gender": "female",
-      "birth_date": ""
+      "birth_date": "2020-04-13"
    }
 ]

@@ -126,6 +126,24 @@ class StudentsModel{
             }
         } )
     }
+
+    static emailStudents(email, callback) {
+        this.getStudents((err, data) => {
+            if(err) {
+                callback(err)
+            } else {
+                let result = []
+
+                for(let i=0; i<data.length; i++) {
+                    if(email === data[i].email) {
+                        result.push(data[i])
+                    }
+                }
+
+                callback(null, result)
+            }
+        })
+    }
 }
 
 module.exports = StudentsModel

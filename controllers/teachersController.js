@@ -10,6 +10,16 @@ class TeachersController {
             }
         })
     }
+
+    static idTeachers(req, res) {
+        TeachersModel.idTeachers(req.params.id, (err, data)=> {
+            if(err){
+                res.render('eror.ejs', {eror : err})
+            } else {
+                res.render('teachers.ejs', {data})
+            }
+        })
+    }
 }
 
 module.exports = TeachersController

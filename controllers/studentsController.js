@@ -65,6 +65,16 @@ class StudentsController{
             }
         })
     }
+
+    static emailStudents(req, res) {
+        StudentsModel.emailStudents(req.params.email, (err, data) => {
+            if(err){
+                res.render('eror.ejs', {eror : err})
+            } else {
+                res.render('students', {data})
+            }
+        })
+    }
 }
 
 module.exports = StudentsController
