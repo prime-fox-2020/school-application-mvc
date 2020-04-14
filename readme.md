@@ -1,1 +1,0 @@
-# School Application MVC Architecture + PG
