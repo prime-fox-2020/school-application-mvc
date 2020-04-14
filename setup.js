@@ -1,5 +1,6 @@
 const pool = require('./config/connection.js')
 
+
 const createStudents = `CREATE TABLE "students"(
   "id" serial PRIMARY KEY,
   "first_name" VARCHAR (50) NOT NULL,
