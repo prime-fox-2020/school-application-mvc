@@ -1,5 +1,5 @@
 {
-  "name": "school-application-express",
+  "name": "school-application-mvc",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
@@ -15,12 +15,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/prime-fox-2020/school-application-express.git"
+    "url": "git+https://github.com/prime-fox-2020/school-application-mvc.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/prime-fox-2020/school-application-express/issues"
+    "url": "https://github.com/prime-fox-2020/school-application-mvc/issues"
   },
-  "homepage": "https://github.com/prime-fox-2020/school-application-express#readme"
+  "homepage": "https://github.com/prime-fox-2020/school-application-mvc#readme"
 }
