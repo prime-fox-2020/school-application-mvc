@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>School Aplication</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/students">Students List</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/students">Browse Students </a>
+            </li>
+          </ul>
+            <a href="/students/add" class="btn btn-outline-primary my-2 my-sm-0" type="submit">Add New Students</a>
+        </div>
+      </nav>
+
+    <div class="jumbotron">
+        <form action="/students/add" method="POST">
+            <div class="form-row">
+              <div class="col-md-4 mb-3">
+                <label for="validationDefault01">First name</label>
+                <input name="first_name" type="text" class="form-control" id="validationDefault01" placeholder="First Name"  required>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="validationDefault02">Last name</label>
+                <input name="last_name" type="text" class="form-control" id="validationDefault02" placeholder="Last Name" required>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="validationDefaultUsername">Email</label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroupPrepend2">@</span>
+                  </div>
+                  <input name= "email" type="text" class="form-control" id="validationDefaultUsername"  aria-describedby="inputGroupPrepend2" required>
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <!-- <div class="col-md-4 mb-3">
+                <label for="validationDefault03">Gender</label>
+                <input name="gender" type="text" class="form-control" id="validationDefault03" placeholder="Gender"  required>
+              </div> -->
+              <div class="col-md-3 mb-3">
+                <label for="validationDefault04">Gender</label>
+                <select name="gender" class="custom-select" id="validationDefault04" required>
+                  <option selected disabled value="">Choose...</option>
+                  <option>Male</option>
+                  <option>Female</option>
+                </select>
+              </div>
+              <div class="col-md-3 mb-3">
+                <label for="validationDefault05">Birth date</label>
+                <input name="birt_date" type="text" class="form-control" id="validationDefault05" placeholder="ex: 25 Maret 2001"  required>
+              </div>
+            </div>
+            <button class="btn btn-primary" type="submit">Submit</button>
+          </form>
+      </div>
+</body>
+</html>
