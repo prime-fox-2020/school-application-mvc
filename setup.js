@@ -24,7 +24,7 @@ const queryTeachers = `
 const querySubjects = `
   CREATE TABLE subjects (
     id SERIAL PRIMARY KEY,
-    subject VARCHAR(125) NOT NULL
+    subject_name VARCHAR(125) NOT NULL
   )
 `
 
