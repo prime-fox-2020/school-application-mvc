@@ -14,4 +14,7 @@ router
   .get('/:id/edit', StudentController.getEdit)
   .post('/:id/edit', StudentController.postEdit)
 
+router
+  .get('/:id/delete', StudentController.deleteById)
+
 module.exports = router

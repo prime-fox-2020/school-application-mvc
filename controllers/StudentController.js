@@ -52,6 +52,16 @@ class StudentController {
       }
     })
   }
+
+  static deleteById(req, res) {
+    StudentModel.deleteById(Number(req.params.id), (err, data) => {
+      if (err) {
+        res.render('public/404', { errMsg: err })
+      } else {
+        res.redirect('/students')
+      }
+    })
+  }
 }
 
 module.exports = StudentController

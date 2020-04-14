@@ -58,6 +58,19 @@ class StudentModel {
       callback(null, 'All fields should not be empty.')
     }
   }
+
+  static deleteById(id, callback) {
+    const query = `DELETE FROM students WHERE id = $1`
+    const params = [id]
+
+    pool.query(query, params, err=> {
+      if (err) {
+        callback(err, null)
+      } else {
+        callback(null, 'success')
+      }
+    })
+  }
 }
 
 module.exports = StudentModel
