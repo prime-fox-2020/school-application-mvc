@@ -1,12 +1,12 @@
-<h3><% if (data) {%>Edit Student <% } else { %>New Student<% } %></h3>
-<% 
-let Object = {}, editing = false;
-
-if (data) {
-    Object = data[0], editing = true;
-}
-%>
 <div class="container">
+  <h3><% if (data) {%>Edit Student <% } else { %>New Student<% } %></h3>
+  <% 
+  let Object = {}, editing = false;
+
+  if (data) {
+      Object = data[0], editing = true;
+  }
+  %>
   <form action="<%= editing == true ? `/students/${Object.id}/edit` : `/students/add` %>" method="POST">
     <% if (editing) {%>
     <input type="text" name="id" value="<%= Object.id %>" hidden>
