@@ -4,17 +4,25 @@ const StudentController = require('../controllers/StudentController')
 const router = express.Router()
 
 router
-  .get('/', StudentController.getStudents)
+  .route('/')
+  .get(StudentController.getStudents)
 
 router
-  .get('/add', StudentController.getAdd)
-  .post('/add', StudentController.postAdd)
+  .route('/*@*')
+  .get(StudentController.getStudentByEmail)
 
 router
-  .get('/:id/edit', StudentController.getEdit)
-  .post('/:id/edit', StudentController.postEdit)
+  .route('/add')
+  .get(StudentController.getAdd)
+  .post(StudentController.postAdd)
 
 router
-  .get('/:id/delete', StudentController.deleteById)
+  .route('/:id/edit')
+  .get(StudentController.getEdit)
+  .post(StudentController.postEdit)
+
+router
+  .route('/:id/delete')
+  .get(StudentController.deleteById)
 
 module.exports = router

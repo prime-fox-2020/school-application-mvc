@@ -4,9 +4,11 @@ const PageController = require('../controllers/PageController')
 const router = express.Router()
 
 router
-  .get('/', PageController.getHome)
+  .route('/')
+  .get(PageController.getHome)
 
 router
-  .get('/*', PageController.notFound)
+  .route('/*')
+  .get(PageController.notFound)
 
 module.exports = router

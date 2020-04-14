@@ -4,9 +4,11 @@ const TeacherController = require('../controllers/TeacherController')
 const router = express.Router()
 
 router
-  .get('/', TeacherController.getTeachers)
+  .route('/')
+  .get(TeacherController.getTeachers)
 
 router
-  .get('/:id', TeacherController.getTeacherById)
+  .route('/:id')
+  .get(TeacherController.getTeacherById)
 
 module.exports = router

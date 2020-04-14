@@ -4,9 +4,11 @@ const SubjectController = require('../controllers/SubjectController')
 const router = express.Router()
 
 router
-  .get('/', SubjectController.getSubjects)
+  .route('/')
+  .get(SubjectController.getSubjects)
 
 router
-  .get('/:id', SubjectController.getSubjectById)
+  .route('/:id')
+  .get(SubjectController.getSubjectById)
 
 module.exports = router

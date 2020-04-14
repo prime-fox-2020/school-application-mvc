@@ -13,6 +13,20 @@ class StudentModel {
     })
   }
 
+  static findByEmail(email, callback) {
+    const query = 'SELECT * FROM students WHERE email = $1 ORDER BY id'
+    const params = [email]
+    pool.query(query, params, (err, results) => {
+      if (err) {
+        callback(err, null)
+      } else if (results.rows.length) {
+        callback(null, results.rows[0])
+      } else {
+        callback(null, `Student with email ${email} is not found.`)
+      }
+    })
+  }
+
   static createOne({first_name, last_name, gender, email}, callback) {
     if (first_name && last_name && gender && email) {
       const query = 'INSERT INTO students (first_name, last_name, gender, email) VALUES ($1, $2, $3, $4)'

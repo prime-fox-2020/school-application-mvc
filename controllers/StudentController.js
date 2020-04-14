@@ -12,6 +12,18 @@ class StudentController {
     })
   }
 
+  static getStudentByEmail(req, res) {
+    StudentModel.findByEmail(req.url.split('/')[1], (err, data) => {
+      if (err) {
+        res.render('public/404', { errMsg: err })
+      } else if (typeof data === 'object') {
+        res.render('student/detail', { data })
+      } else {
+        res.render('public/404', { errMsg: data })
+      }
+    })
+  }
+
   static getAdd(req, res) {
     res.render('student/add')
   }
@@ -33,7 +45,6 @@ class StudentController {
       if (err) {
         res.render('public/404', { errMsg: err })
       } else if (typeof data === 'object') {
-        console.log(data)
         res.render('student/edit', {data})
       } else {
         res.render('public/404', { errMsg: data })
