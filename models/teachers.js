@@ -86,6 +86,19 @@ class Teacher{
 
     }
 
+    static selectId(id,cb){
+        let select = `SELECT * FROM "teachers" WHERE "id" = ${id}`
+
+        pool.query(select, (err, data) => {
+            if(err){
+                cb(err, null)
+            } else{
+                const dataSelect = [data.rows[0]]
+                cb(null, dataSelect)
+            }
+        })
+    }
+
 
 
 }

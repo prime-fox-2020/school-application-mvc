@@ -15,7 +15,6 @@ class Controller {
 
     static editSubject(req,res){
         const id = req.params.id
-
         Subjects.editSubject(id,(err,data)=>{
             if(err){
                 res.send(err)
@@ -26,13 +25,20 @@ class Controller {
         })
     }
 
-    static addSubject(id,first_name,last_name,email,gender){
-        return Subjects.addStudent(id,first_name,last_name,email,gender)
+    static selectId(req,res){
+        const id = req.params.id
+        console.log (id)
+        Subjects.selectId(id,(err,data)=>{
+            if (err){
+                res.send(err)
+            }else{
+                console.log(data)
+                res.render("subjects",{data})
+            }
+        })
     }
-
-    static deleteSubject(){
         
-    }
+
 
 }
 

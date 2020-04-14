@@ -86,6 +86,19 @@ class Student {
 
     }
 
+    static selectEmail(email,cb){
+        let selectEmail = `SELECT * FROM "students" WHERE "email" = ${email}`
+
+        pool.query(selectEmail, (err, data) => {
+            if(err){
+                cb(err, null)
+            } else{
+                const byEmail = [data.rows[0]]
+                cb(null, byEmail)
+            }
+        })
+    }
+
 }
 
 

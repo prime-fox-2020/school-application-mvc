@@ -1,3 +1,4 @@
+const pool = require ('../config/connection')
 const fs = require('fs')
 
 class Subject{
@@ -6,20 +7,19 @@ class Subject{
         this.subject_name = subject_name
     }
 
-    static readJSON(cb){
-        fs.readFile('./data/subjects.json','utf8',(err,data)=>{
+    static getTable(cb){
+        const select = 'SELECT * FROM "subjects" ORDER BY "id" ASC'
+        pool.query(select, (err,data)=>{
             if(err){
                 cb(err,null)
             }else{
-                let dataparse = JSON.parse(data)
-                cb(null,dataparse)
+                cb(null,data.rows)
             }
         })
     }
 
-
     static viewSubjects(cb){
-        this.readJSON((err,data)=>{
+        this.getTable((err,data)=>{
             if (err){
                 cb(err,null)
             }else{
@@ -28,31 +28,18 @@ class Subject{
         })
     }
 
-    static editSubject (id,cb){
-        this.readJSON((err,data)=>{
+
+    static selectEmail(id,cb){
+        let select = `SELECT * FROM "subjects" WHERE "id" = ${id}`
+
+        pool.query(selectEmail, (err, data) => {
             if(err){
-                cb(err,null)
-            }else{
-                let editAsId = []
-                for(var i = 0 ; i <data.length ; i ++){
-                    if(id == data[i].id){
-                        editAsId.push(new Subject (data[i].id,data[i].subject_name))
-                    }
-                }
-                cb(null,editAsId)
+                cb(err, null)
+            } else{
+                const byId = [data.rows[0]]
+                cb(null, byEmail)
             }
         })
-
-    }
-
-    static rewrite(data,cb){
-        fs.writeFile(`./subjects.json`, JSON.stringify(data, null, 4), (err,data) => {
-          if (err) {
-          cb(err,null)
-          }else{
-          cb(null, "berhasil")
-          }
-      })
     }
 
 

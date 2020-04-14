@@ -66,6 +66,19 @@ class Controller {
         })
     }
 
+    static selectId(req,res){
+        const id = req.params.id
+        console.log (id)
+        Teachers.selectId(id,(err,data)=>{
+            if (err){
+                res.send(err)
+            }else{
+                console.log(data)
+                res.render("teachers",{data})
+            }
+        })
+    }
+
 }
 
 

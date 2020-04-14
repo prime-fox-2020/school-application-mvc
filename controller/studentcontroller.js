@@ -7,6 +7,7 @@ class Controller {
             if(err){
                 res.send(err)
             }else{
+                console.log(data)
                 res.render("students",{data})
             }
         })
@@ -66,6 +67,19 @@ class Controller {
                 res.redirect('/students')
             }
 
+        })
+    }
+
+    static selectEmail(req,res){
+        const email = req.params.email
+        console.log (email)
+        Students.selectEmail(email,(err,data)=>{
+            if (err){
+                res.send(err)
+            }else{
+                console.log(data)
+                res.render("students",{data})
+            }
         })
     }
 
