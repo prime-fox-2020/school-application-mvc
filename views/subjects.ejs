@@ -10,6 +10,8 @@
 </head>
 <body>
   <%- include('content/navigation/navbar.ejs') %>
+<div class="container">
+  <%- include('content/callout/callout.ejs') %>
   <table class="table">
     <thead class="thead-light">
       <tr>
@@ -24,12 +26,13 @@
         <td><%= el.id %></td>
         <td><%= el.subject_name %></td>
         <td style="text-align: center;">
-          <a href="/subjects/edit?id=1" class="btn btn-outline-info" role="button">Edit</a>
-          <a href="/subjects/delete?id=1" class="btn btn-outline-danger" role="button">Delete</a>
+          <a href="/subjects/edit?id=<%= el.id %>" class="btn btn-outline-info" role="button" hidden>Edit</a>
+          <a href="/subjects/delete?id=<%= el.id %>" class="btn btn-outline-danger" role="button">Delete</a>
         </td>
       </tr>
       <% })} %>
     </tbody>
   </table>
+</div>
 </body>
 </html>
