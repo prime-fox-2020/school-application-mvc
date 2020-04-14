@@ -1,14 +1,15 @@
-const fs = require('fs')
+const pool = require('../config/connection')
 
 class SubjectsModel{
 
   static read(callback) {
-    fs.readFile('./data/subjects.json','utf8', (err, data) => {
+    const query = `SELECT * FROM subjects`
+
+    pool.query(query, (err, res) => {
       if(err) {
         callback(err, null)
       } else {
-        data = JSON.parse(data)
-        callback(null, data)
+        callback(null, res.rows)
       }
     })
   }
@@ -24,22 +25,18 @@ class SubjectsModel{
   }
 
   static getId(params, callback) {
-    // console.log(params)
-    this.read((err, data) => {
+    let query = `SELECT * FROM subjects WHERE id = $1`
+    let paramsId = [params]
+
+    pool.query(query, paramsId, (err, res) => {
       if(err) {
         callback(err, null)
       } else {
-        let subject = []
-        data.forEach(element => {
-          if(element.id == params) {
-            subject.push(element)
-          }
-        });
-        callback(null, subject)
+        callback(null, res.rows)
       }
     })
   }
-
+  
 }
 
 module.exports = SubjectsModel

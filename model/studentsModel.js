@@ -1,14 +1,14 @@
-const fs = require('fs')
+const pool = require('../config/connection')
 
 class StudentsModel {
 
   static read(callback) {
-    fs.readFile('./data/students.json','utf8', (err, data) => {
+    const query = `SELECT * FROM students ORDER BY id asc`
+    pool.query(query, (err, res) => {
       if(err) {
         callback(err, null)
       } else {
-        data = JSON.parse(data)
-        callback(null, data)
+        callback(null, res.rows)
       }
     })
   }
@@ -24,118 +24,68 @@ class StudentsModel {
   }
 
   static postAdd(student, callback) {
-    this.read((err, data) => {
+    let query = `INSERT INTO students(first_name, last_name, email, gender, birth_date) VALUES ($1, $2, $3, $4, $5) `
+    const params = [student.first_name, student.last_name, student.email, student.gender, student.birth_date]
+    pool.query(query, params, err => {
       if(err) {
         callback(err, null)
       } else {
-        data.push({
-          id: data[data.length-1].id +1,
-          first_name: student.first_name,
-          last_name: student.last_name,
-          email: student.email,
-          gender: student.gender,
-          birth_date: student.birth_date
-        })
-        this.save(data, (err) => {
-          if(err) {
-            callback(err, null)
-          } else {
-            callback(null, `Students ${student.first_name} successfully added`)
-          }
-        })
-      }
-    })
-  }
-
-  static save(data, callback) {
-    fs.writeFile('./data/students.json', JSON.stringify(data,null,2), 'utf8', (err) => {
-      if(err) {
-        callback(err)
-      } else {
-        callback(null)
+        callback(null, `Students ${student.first_name} successfully added`)
       }
     })
   }
 
   static getEdit(paramsId, callback) {
-    this.read((err, data) => {
+    let query =  `SELECT * FROM students WHERE id = $1`
+    let params = [paramsId]
+    pool.query(query, params, (err, res) => {
       if(err) {
         callback(err, null)
       } else {
-        let edited = {}
-        data.forEach(element => {
-          if(paramsId === element.id) {
-            edited = element
-          }
-        });
-        callback(null, edited)
+        callback(null, res.rows[0])
       }
     })
   }
 
-  static postEdit(params, callback) {
-    this.read((err, data) => {
+  static postEdit(student, callback) {
+    let query = `UPDATE students SET first_name = $2, last_name = $3, email = $4, gender = $5, birth_date = $6 WHERE id = $1`
+    let params = [student.id, student.first_name, student.last_name, student.email, student.gender, student.birth_date]
+
+    pool.query(query, params, err => {
       if(err) {
         callback(err, null)
       } else {
-        data.forEach(element => {
-          if(element.id === params.id) {
-            element.first_name = params.first_name
-            element.last_name = params.last_name
-            element.email = params.email
-            element.gender = params.gender
-            element.birth_date = params.birth_date
-          }
-        });
-        this.save(data, (err) => {
-          if(err) {
-            callback(err,null)
-          } else {
-            callback(null, `Successfully edited Student ${params.first_name}`)
-          }
-        })
+        callback(null, `Successfully edited student ${student.first_name}`)
       }
     })
   }
 
-  static getEmail(params, callback) {
-    this.read((err, data) => {
+  static getEmail(email, callback) {
+    let query = `SELECT * FROM students WHERE email = $1`
+    let params = [email]
+
+    pool.query(query, params, (err, res) => {
       if(err) {
-        callback(err, null)
+        callback(err,null)
       } else {
-        let sort = []
-        data.forEach(element => {
-          if(element.email == params) {
-            sort.push(element)
-          }
-        });
-        callback(null, sort)
+        callback(null, res.rows)
       }
     })
   }
 
   static delete(studentId, callback) {
-    this.read((err, data) => {
+    let query = `DELETE FROM students WHERE id = $1`
+    let params = [studentId]
+
+    pool.query(query, params, err => {
       if(err) {
-        callback(err, null)
+        callback(err,null)
       } else {
-        let newData = []
-        data.forEach(element => {
-          if(element.id !== studentId) {
-            newData.push(element)
-          }
-        });
-        this.save(newData, (err) => {
-          if(err) {
-            callback(err,null)
-          } else {
-            callback(null, `Students id ${studentId} has been deleted`)
-          }
-        })
+        callback(null, `Students id ${studentId} has been deleted`)
       }
     })
   }
-
+  
 }
 
 module.exports = StudentsModel

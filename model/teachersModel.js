@@ -1,14 +1,15 @@
-const fs = require('fs')
+const pool = require('../config/connection')
 
 class TeachersModel {
 
   static read(callback) {
-    fs.readFile('./data/teachers.json', 'utf8', (err, data) => {
+    const query = `SELECT * FROM teachers`
+
+    pool.query(query, (err, res) => {
       if(err) {
         callback(err, null)
       } else {
-        data = JSON.parse(data)
-        callback(null, data)
+        callback(null, res.rows)
       }
     })
   }
@@ -24,21 +25,18 @@ class TeachersModel {
   }
 
   static getId(params, callback) {
-    this.read((err, data) => {
+    let query = `SELECT * FROM teachers WHERE id = $1`
+    let paramsId = [params]
+
+    pool.query(query, paramsId, (err, res) => {
       if(err) {
         callback(err, null)
       } else {
-        let teacher = []
-        data.forEach(element => {
-          if(element.id == params) {
-            teacher.push(element)
-          }
-        });
-        callback(null, teacher)
+        callback(null, res.rows)
       }
     })
   }
-
+  
 }
 
 module.exports = TeachersModel
