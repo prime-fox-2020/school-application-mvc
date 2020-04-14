@@ -1,28 +1,18 @@
-const fs = require('fs');
+const pool = require('../config/connection');
 
 class TeachersModel {
   static getData(callback) {
-    this.open((err, data) => {
+    const query = `
+      SELECT * FROM teachers
+    `
+
+    pool.query(query, (err, res) => {
       if (err) {
         callback(err, null);
       } else {
-        callback(null, data);
+        callback(null, res.rows);
       }
     })
-  }
-
-  static open(callback) {
-    fs.readFile('./teachers.json', 'utf8', (err, data) => {
-      if (err) {
-        callback(err, null);
-      } else {
-        callback(null, JSON.parse(data));
-      }
-    })
-  }
-
-  static save(data, callback) {
-    fs.writeFile('./teachers.json', JSON.stringify(data, null, 2), ()=>callback())
   }
 }
 
