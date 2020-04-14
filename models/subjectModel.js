@@ -1,8 +1,8 @@
-const db = require('../config/connection');
+const pool = require('../config/connection');
 
 class SubjectModel{
     static read(cb){
-        db.query('SELECT * from subjects', (err, res) => {
+        pool.query('SELECT * from subjects', (err, res) => {
             if(err){
                 cb(err, null);
             } else {
@@ -30,7 +30,7 @@ class SubjectModel{
                     cb(null, 'Wrong Id!');
                 } else {
                     cb(null, result);
-            }
+                }
             }
         })
     }

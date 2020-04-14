@@ -1,8 +1,8 @@
-const db = require('../config/connection');
+const pool = require('../config/connection');
 
 class TeacherModel{
     static read(cb){
-        db.query('SELECT * from teachers', (err, res) => {
+        pool.query('SELECT * from teachers', (err, res) => {
             if(err){
                 cb(err, null);
             } else {

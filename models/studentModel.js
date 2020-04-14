@@ -1,15 +1,16 @@
-const db = require('../config/connection');
+const pool = require('../config/connection');
 const ChangeMonth = require('../helpers/date');
 
 class StudentModel{
     static read(cb){
-        db.query('SELECT * from students ORDER BY id ASC', (err, res) => {
+        pool.query(`SELECT * from students ORDER BY id ASC`, (err, res) => {
             if(err){
                 cb(err, null);
             } else {
                 let data = res.rows;
                 cb(null, data);
             }
+            
         })
     }
 
@@ -28,13 +29,18 @@ class StudentModel{
         dateArr[2] = dateArr[2].substring(1);
         let birth_date = dateArr.reverse().join(' ');
 
-        db.query(`INSERT into students (first_name, last_name, email, gender, birth_date) 
-            VALUES ('${first_name}', '${last_name}', '${email}', '${gender}', '${birth_date}')`, (err, res) => {
+        let query = `INSERT into students (first_name, last_name, email, gender, birth_date) 
+        VALUES ($1, $2, $3, $4, $5)`;
+
+        let param = [first_name, last_name, email, gender, birth_date];
+
+        pool.query(query, param,(err, res) => {
                 if(err){
                     cb(err, null);
                 } else {
                     cb(null, true);
                 }
+                
             })
     }
 
@@ -63,7 +69,7 @@ class StudentModel{
     }
 
     static edit_get(id, cb){
-        db.query(`SELECT * from students WHERE id = ${id}`, (err, res) => {
+        pool.query(`SELECT * from students WHERE id = ${id}`, (err, res) => {
             if(err){
                 cb(err, null);
             } else {
@@ -83,28 +89,37 @@ class StudentModel{
         dateArr[1] = ChangeMonth.changeToWord(dateArr[1]);
         let birth_date = dateArr.reverse().join(' ');
 
-        db.query(`UPDATE students SET 
-            first_name = '${newStudent.first_name}',
-            last_name = '${newStudent.last_name}',
-            email = '${newStudent.email}',
-            gender = '${newStudent.gender}',
-            birth_date = '${birth_date}'
-                WHERE id = ${id}`, (err, res) => {
+        let query = `UPDATE students 
+                        SET 
+                            first_name = '${newStudent.first_name}',
+                            last_name = '${newStudent.last_name}',
+                            email = '${newStudent.email}',
+                            gender = '${newStudent.gender}',
+                            birth_date = '${birth_date}'
+                        WHERE 
+                            id = ${id}`
+        
+        let param = [id, newStudent.first_name, newStudent.last_name, newStudent.email, newStudent.gender, birth_date]
+
+        pool.query(query, (err, res) => {
                     if(err){
+                        console.log('ERROR')
                         cb(err, null);
                     } else {
+                        console.log('MASOK')
                         cb(null, true);
                     }
                 })
     }
 
     static delete(id, cb){
-        db.query(`DELETE from students WHERE id = ${id}`, (err, res) => {
+        pool.query(`DELETE from students WHERE id = ${id}`, (err, res) => {
             if(err){
                 cb(err, null);
             } else {
                 cb(null, true);
             }
+            
         })
     }
 }

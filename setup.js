@@ -1,4 +1,4 @@
-const db = require('./config/connection');
+const pool = require('./config/connection');
 
 const tableStudent = `CREATE TABLE students (
     id serial PRIMARY KEY,
@@ -22,7 +22,7 @@ const tableSubject = `CREATE TABLE subjects (
     subject_name VARCHAR(100)
 )`
 
-db.query(tableStudent, (err, res) => {
+pool.query(tableStudent, (err, res) => {
     if(err){
         console.log('!!!!!!!!!!');
         console.log('ERROR TABLE STUDENT')
@@ -31,7 +31,7 @@ db.query(tableStudent, (err, res) => {
         console.log('=-=-=-=-=-=-=');
         console.log('CREATE TABLE STUDENT')
         console.log('=-=-=-=-=-=-=');
-        db.query(tableTeacher, (err, res) => {
+        pool.query(tableTeacher, (err, res) => {
             if(err){
                 console.log('!!!!!!!!!!');
                 console.log('ERROR TABLE TEACHER')
@@ -40,7 +40,7 @@ db.query(tableStudent, (err, res) => {
                 console.log('=-=-=-=-=-=-=');
                 console.log('CREATE TABLE TEACHER')
                 console.log('=-=-=-=-=-=-=');
-                db.query(tableSubject, (err, res) => {
+                pool.query(tableSubject, (err, res) => {
                     if(err){
                         console.log('!!!!!!!!!!');
                         console.log('ERROR TABLE SUBJECT')
@@ -49,7 +49,7 @@ db.query(tableStudent, (err, res) => {
                         console.log('=-=-=-=-=-=-=');
                         console.log('CREATE TABLE SUBJECT')
                         console.log('=-=-=-=-=-=-=');
-                        db.end()
+                        pool.end()
                     }
                 })
             }

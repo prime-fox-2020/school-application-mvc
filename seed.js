@@ -1,5 +1,5 @@
 const fs = require('fs');
-const db = require('./config/connection');
+const pool = require('./config/connection');
 
 fs.readFile('./data/students.json', 'utf-8', (err, dataStudent) => {
     if(err){
@@ -17,7 +17,7 @@ fs.readFile('./data/students.json', 'utf-8', (err, dataStudent) => {
             }
         });
 
-        db.query(queryStudent, (err, res) => {
+        pool.query(queryStudent, (err, res) => {
             if(err){
                 console.log('ERROR STUDENTS');
                 console.log(err);
@@ -42,7 +42,7 @@ fs.readFile('./data/students.json', 'utf-8', (err, dataStudent) => {
                             }
                         });
 
-                        db.query(queryTeacher, (err, res) => {
+                        pool.query(queryTeacher, (err, res) => {
                             if(err){
                                 console.log('ERROR TEACHERS');
                                 console.log(err);
@@ -67,7 +67,7 @@ fs.readFile('./data/students.json', 'utf-8', (err, dataStudent) => {
                                             }
                                         });
 
-                                        db.query(querySubject, (err, res) => {
+                                        pool.query(querySubject, (err, res) => {
                                             if(err){
                                                 console.log('ERROR SUBJECTS');
                                                 console.log(err);
@@ -76,7 +76,7 @@ fs.readFile('./data/students.json', 'utf-8', (err, dataStudent) => {
                                                 console.log('INSERT DATA SUBJECTS SUCCESS');
                                                 console.log('=-=-=-=-=-=-=-=-=-=-=-=-=-=');
 
-                                                db.end();
+                                                pool.end();
                                             }
                                         })
                                     }
