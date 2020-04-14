@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <title>School App</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">School App</a> <!-- App name -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/students">Explore Students <span class="sr-only">(current)</span></a> <!-- href,navwords -->
+            </li>
+          </ul>
+        <a href="/students/add" class="btn btn-outline-primary my-2 my-sm-0" type="submit">Add New Students</a> 
+        <!-- href,primary,a,addstud,delForm-->
+        </div>
+    </nav>
+    <div class="container mt-5"><a href="/">Home</a></div> <!--back home-->
+    <div class="jumbotron">
+        <% if(data) { %> 
+        <table class="table"> <!-- from boots table-->
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Firstname</th>
+                <th scope="col">Lastname</th>
+                <th scope="col">Email</th>
+                <th scope="col">Gender</th>
+                <th scope="col">Birthdate</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tbody>
+                <% data.forEach( key => { %>
+                  <tr>
+                    <td scope="row"><%= key.id %></td>
+                    <td><%= key.first_name %></td>
+                    <td><%= key.last_name %></td>
+                    <td><%= key.email %></td>
+                    <td><%= key.gender %></td>
+                    <td><%= key.birth_date %></td>
+                    <td>
+                      <a href="/students/<%= key.id %>/edit">Edit</a><br>
+                      <a href="/students/<%= key.id %>/delete">Delete</a>
+                    </td>
+                  </tr>
+                <% }) %>
+            </tbody>
+        </table> <!-- from boots table -->
+        <% } %>
+    </div>
+    
+</body>
+</html>
