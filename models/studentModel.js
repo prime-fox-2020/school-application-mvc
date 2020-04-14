@@ -10,7 +10,6 @@ class StudentModel{
                 let data = res.rows;
                 cb(null, data);
             }
-            
         })
     }
 
@@ -40,7 +39,6 @@ class StudentModel{
                 } else {
                     cb(null, true);
                 }
-                
             })
     }
 
@@ -74,9 +72,6 @@ class StudentModel{
                 cb(err, null);
             } else {
                 let date = res.rows[0].birth_date.split(' ');
-                if(date[0] < 10){
-                    date[0] = `0${date[0]}`
-                }
                 date[1] = ChangeMonth.changeToNumber(date[1]);
                 let birth_date = date.reverse().join('-');
                 cb(null, {el :res.rows[0], birth_date});
@@ -98,18 +93,15 @@ class StudentModel{
                             birth_date = '${birth_date}'
                         WHERE 
                             id = ${id}`
-        
-        let param = [id, newStudent.first_name, newStudent.last_name, newStudent.email, newStudent.gender, birth_date]
+    
 
         pool.query(query, (err, res) => {
-                    if(err){
-                        console.log('ERROR')
-                        cb(err, null);
-                    } else {
-                        console.log('MASOK')
-                        cb(null, true);
-                    }
-                })
+            if(err){
+                cb(err, null);
+            } else {
+                cb(null, true);
+            }
+        })
     }
 
     static delete(id, cb){
@@ -119,7 +111,6 @@ class StudentModel{
             } else {
                 cb(null, true);
             }
-            
         })
     }
 }
