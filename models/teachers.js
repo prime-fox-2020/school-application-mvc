@@ -1,4 +1,4 @@
-const fs = require('fs')
+const pool = require ('../config/connection')
 
 class Teacher{
     constructor(id,first_name,last_name,email,gender){
@@ -9,136 +9,82 @@ class Teacher{
         this.gender = gender
     }
 
-    static readJSON(cb){
-        fs.readFile('./data/teachers.json','utf8',(err,data)=>{
+    static getTable(cb){
+        const select = 'SELECT * FROM "teachers" ORDER BY "id" ASC'
+        pool.query(select, (err,data)=>{
             if(err){
                 cb(err,null)
             }else{
-                let dataparse = JSON.parse(data)
-                cb(null,dataparse)
+                cb(null,data.rows)
             }
         })
     }
 
-
     static viewTeachers(cb){
-        this.readJSON((err,data)=>{
+        this.getTable((err,data)=>{
             if (err){
                 cb(err,null)
             }else{
+                console.log(data)
                 cb(null,data)
             }
         })
     }
 
     static edit (id,cb){
-        this.readJSON((err,data)=>{
+        let selectById =  `SELECT * FROM "teachers" WHERE id = ${id}`
+        pool.query(selectById, (err, data) => {
             if(err){
-                cb(err,null)
-            }else{
-                let editAsId = []
-                for(var i = 0 ; i <data.length ; i ++){
-                    if(id == data[i].id){
-                        editAsId.push(new Teacher (data[i].id,data[i].first_name,
-                            data[i].last_name,data[i].email,data[i].gender))
-                    }
-                }
-                cb(null,editAsId)
+                cb(err, null)
+            } else{
+                const editData = data.rows[0]
+                cb(null, editData)
             }
         })
+    }   
 
-    }
-
-
-    static change (body,cb){
-        this.readJSON((err,data)=>{
+    static change(body, cb){ 
+        let changeData = `UPDATE "teachers" SET first_name = '${body.first_name}', 
+        last_name = '${body.last_name}', 
+        email = '${body.email}', gender = '${body.gender}' WHERE id = ${body.id}`
+        
+        pool.query(changeData, (err, data) => {
             if(err){
-                cb(err,null)
-            }else{
-                let editAs = []
-                for(var i = 0 ; i <data.length ; i ++){
-                    if(body.id == data[i].id){
-                        editAs.push(new Teacher (body.id,body.first_name,
-                            body.last_name,body.email,body.gender))
-                    }else{
-                        editAs.push(new Teacher (data[i].id,data[i].first_name,
-                            data[i].last_name,data[i].email,data[i].gender))
-                    }
-                }
-                cb(null,editAs)
-                this.rewrite(editAs,(err,data)=>{
-                    if(err){
-                        console.log(err)
-                    }else{
-                        console.log(data)
-                    }
-                })
-            }
-        })
-
-    }
-
-    static delete(id,cb){
-        this.readJSON((err,data)=>{
-            if(err){
-                cb(err,null)
-            }else{
-                let editAsId = []
-                for(var i = 0 ; i <data.length ; i ++){
-                    if(id !== data[i].id){
-                        editAsId.push(new Teacher (data[i].id,data[i].first_name,
-                            data[i].last_name,data[i].email,data[i].gender))
-                    }
-                }
-                let dataEdited = editAsId
-                //// tambahin fungsi rewrite JSON disini
-                cb(null,dataEdited)
-                this.rewrite(dataEdited,(err,data)=>{
-                    if(err){
-                        console.log(err)
-                    }else{
-                        console.log(data)
-                    }
-                })
+                cb(err, null)
+            } else{
+                console.log('changeData in model done')
+                cb(null, true)
             }
         })
     }
+
+    static delete(id, cb) {
+        let deleteData = `DELETE FROM "teachers" WHERE "id" = '${id}'`
+        pool.query(deleteData, (err, res) => {
+          if (err) {
+                cb(err, nul)
+          } else {
+                console.log('berhasil delete')
+                cb(null, true)
+          }
+        })
+    }
+
 
     static add(body,cb){
-        this.readJSON((err,data)=>{
+        let insertNewData = `INSERT INTO "teachers"("first_name","last_name","email","gender")
+        VALUES\n`
+        insertNewData += `('${body.first_name}','${body.last_name}','${body.email}','${body.gender}');`
+        pool.query(insertNewData,(err,data)=>{
             if(err){
                 cb(err,null)
             }else{
-                let dataEdited = []
-                for(var i = 0 ; i <data.length ; i ++){
-                    dataEdited.push(new Teacher (data[i].id,data[i].first_name,
-                        data[i].last_name,data[i].email,data[i].gender))
-                    }
-                    let newid = Number(data[data.length-1].id)+1
-                    dataEdited.push(new Teacher (newid,body.first_name,
-                        body.last_name,body.email,body.gender))
-
-                cb(null,dataEdited)
-                this.rewrite(dataEdited,(err,data)=>{
-                    if(err){
-                        console.log(err)
-                    }else{
-                        console.log(data)
-                    }
-                })
-                }
-            })
-    }
-
-    static rewrite(data,cb){
-        fs.writeFile(`./teachers.json`, JSON.stringify(data, null, 4), (err,data) => {
-          if (err) {
-          cb(err,null)
-          }else{
-          cb(null, "berhasil")
+                console.log('insertNewData in model done')
+                cb(null,true)
           }
       })
-  }
+
+    }
 
 
 
