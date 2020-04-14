@@ -2,7 +2,7 @@ const express = require('express')
 const router = require('./routes')
 const bodyParser = require('body-parser')
 const app = express()
-const port = 3000
+const port = 3005
 
 app.set('view engine', 'ejs')
 app.set(express.urlencoded({extended : true}))

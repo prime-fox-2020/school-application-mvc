@@ -56,6 +56,17 @@ class StudentsController{
             }
         })
     }
+
+    static pageWithEmail(req, res){
+        ModelStudents.getPageEmail (req.params.email, (err, data) => {
+            if(err){
+                res.render('error', {error: err})
+            }
+            else{
+                res.render('students', {data, alert : ''})
+            }
+        })
+    }
 }
 
 module.exports = StudentsController

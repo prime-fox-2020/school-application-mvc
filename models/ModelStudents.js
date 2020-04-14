@@ -53,6 +53,17 @@ class ModelStudents{
             }
         })
     }
+
+    static getPageEmail(email, callback){
+        pg.query(`SELECT * FROM students WHERE email = '${email}'`, (err, res) => {
+            if(err){
+                callback(err, null)
+            }
+            else{
+                callback(null, res.rows)
+            }
+        })
+    }
 }
 
 module.exports = ModelStudents
