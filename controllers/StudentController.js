@@ -20,8 +20,35 @@ class StudentController {
     StudentModel.createOne(req.body, (err, data) => {
       if (err) {
         res.render('public/404', { errMsg: err })
-      } else {
+      } else if (data === 'success') {
         res.redirect('/students')
+      } else {
+        res.render('public/404', { errMsg: data })
+      }
+    })
+  }
+
+  static getEdit(req, res) {
+    StudentModel.getEdit(Number(req.params.id), (err, data) => {
+      if (err) {
+        res.render('public/404', { errMsg: err })
+      } else if (typeof data === 'object') {
+        console.log(data)
+        res.render('student/edit', {data})
+      } else {
+        res.render('public/404', { errMsg: data })
+      }
+    })
+  }
+
+  static postEdit(req, res) {
+    StudentModel.postEdit(Number(req.params.id), req.body, (err, data) => {
+      if (err) {
+        res.render('public/404', { errMsg: err })
+      } else if (data === 'success') {
+        res.redirect('/students')
+      } else {
+        res.render('public/404', { errMsg: data })
       }
     })
   }

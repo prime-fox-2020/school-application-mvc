@@ -8,23 +8,55 @@ class StudentModel {
       if (err) {
         callback(err, null)
       } else {
-        console.log(results.rows)
         callback(null, results.rows)
       }
     })
   }
 
   static createOne({first_name, last_name, gender, email}, callback) {
-    const query = 'INSERT INTO students (first_name, last_name, gender, email) VALUES ($1, $2, $3, $4)'
-    const params = [first_name, last_name, gender, email]
-    pool.query(query, params, err => {
+    if (first_name && last_name && gender && email) {
+      const query = 'INSERT INTO students (first_name, last_name, gender, email) VALUES ($1, $2, $3, $4)'
+      const params = [first_name, last_name, gender, email]
+      pool.query(query, params, err => {
+        if (err) {
+          callback(err, null)
+        } else {
+          callback(null, 'success')
+        }
+      })
+    } else {
+      callback(null, 'All fields should not be empty.')
+    }
+  }
+
+  static getEdit(id, callback) {
+    const query = `SELECT * FROM students WHERE id = $1`
+    const params = [id]
+    pool.query(query, params, (err, results) => {
       if (err) {
         callback(err, null)
+      } else if (results.rows.length) {
+        callback(null, results.rows[0])
       } else {
-        callback(null, 'success')
+        callback(null, `Student with ID ${id} is not found.`)
       }
     })
-    console.log(params)
+  }
+
+  static postEdit(id, { first_name, last_name, gender, email }, callback) {
+    const query = `UPDATE students SET first_name = $2, last_name = $3, gender = $4, email = $5  WHERE id = $1`
+    const params = [id, first_name, last_name, gender, email]
+    if (first_name && last_name && gender && email) {
+      pool.query(query, params, err => {
+        if (err) {
+          callback(err, null)
+        } else {
+          callback(null, `success`)
+        }
+      })
+    } else {
+      callback(null, 'All fields should not be empty.')
+    }
   }
 }
 
