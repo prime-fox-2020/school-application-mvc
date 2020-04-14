@@ -22,7 +22,7 @@
                     <tbody>
                         <% data.forEach( list => { %>
                             <tr>
-                                <td class="text-center"><%= list.id %></td>
+                                <td class="text-center"><a href="/subjects/<%= list.id %>"><%= list.id %></a></td>
                                 <td class="text-center"><%= list.subject_name %></td>
                             </tr>
                         <% }) %>

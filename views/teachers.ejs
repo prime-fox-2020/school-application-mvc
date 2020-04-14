@@ -21,7 +21,7 @@
                 <tbody>
                     <% data.forEach( list => { %>
                         <tr>
-                            <td class="text-center"><%= list.id %></td>
+                            <td class="text-center"><a href="/teachers/<%= list.id %>"><%= list.id %></a></td>
                             <td class="text-center"><%= list.first_name %></td>
                             <td class="text-center"><%= list.last_name %></td>
                             <td class="text-center"><%= list.email %></td>
