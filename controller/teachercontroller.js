@@ -1,8 +1,6 @@
 const Teachers = require ('../models/teachers')
 
 class Controller {
-    constructor(){
-    }
 
     static viewTeachers(req,res){
         Teachers.viewTeachers((err,data)=>{
@@ -67,11 +65,6 @@ class Controller {
 
         })
     }
-
-
-
-
-
 
 }
 

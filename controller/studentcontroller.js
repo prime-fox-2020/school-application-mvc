@@ -2,7 +2,6 @@ const Students = require ('../models/students')
 
 class Controller {
 
-
     static viewStudents(req,res){
         Students.viewStudents((err,data)=>{
             if(err){

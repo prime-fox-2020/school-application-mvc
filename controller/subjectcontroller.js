@@ -2,8 +2,6 @@ const Subjects = require ('../models/subjects')
 
 
 class Controller {
-    constructor(){
-    }
 
     static viewSubjects(req,res){
         Subjects.viewSubjects((err,data)=>{
