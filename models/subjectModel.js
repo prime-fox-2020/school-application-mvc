@@ -1,4 +1,5 @@
 const fs = require('fs')
+const pool = require('../config/config')
 
 class SubjectModel{
     static readFileJson(callback){
@@ -12,27 +13,44 @@ class SubjectModel{
     }
 
     static getSubjectList(callback){
-        this.readFileJson((err, data) => {
-            if (err){
+        // this.readFileJson((err, data) => {
+        //     if (err){
+        //         callback(err,null)
+        //     } else{
+        //         callback(null,data)
+        //     }
+        // })
+        const query = `SELECT * FROM subject`
+        pool.query(query, (err,result)=> {
+            if(err){
                 callback(err,null)
-            } else{
-                callback(null,data)
+            } else {
+                callback(null, result.rows)
             }
         })
     }
 
     static getSubjectIdList(subjectId, callback){
-        this.readFileJson((err,data) => {
+        // this.readFileJson((err,data) => {
+        //     if(err){
+        //         callback(err,null)
+        //     } else {
+        //         let subjectList = []
+        //         data.forEach(item =>{
+        //             if(item.id == subjectId){
+        //                 subjectList.push(item)
+        //             }
+        //         })
+        //         callback(null,subjectList)
+        //     }
+        // })
+        const query = `SELECT * FROM subject WHERE id = $1`
+        const param = [subjectId]
+        pool.query(query, param,(err,result)=> {
             if(err){
                 callback(err,null)
             } else {
-                let subjectList = []
-                data.forEach(item =>{
-                    if(item.id == subjectId){
-                        subjectList.push(item)
-                    }
-                })
-                callback(null,subjectList)
+                callback(null, result.rows)
             }
         })
     }
