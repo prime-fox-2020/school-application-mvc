@@ -5,6 +5,9 @@ class Render {
     static page = (page, request, response) => {
 
         let pageSelector = request.params.selector;
+        let callout = request.query.hasOwnProperty('action') ||
+                      request.query.hasOwnProperty('update')
+                      ? request.query : '';
 
         switch (pageSelector) {
 
@@ -19,7 +22,7 @@ class Render {
             case 'edit' : {
 
                 Models.findById(page, request.query.id)
-                    .then(result => response.render(page, {form: page, data: result, activeMenu: page, hideAddNewButton: true}))
+                    .then(result => response.render('new', {form: page, data: result, activeMenu: page, hideAddNewButton: true}))
                     .catch(err => response.send(err))
 
             }; break;
@@ -32,7 +35,7 @@ class Render {
 
             default : {
                 Models.show(page)
-                    .then(result => response.render(page, {data: result, activeMenu: page, hideAddNewButton: false}))
+                    .then(result => response.render(page, {data: result, activeMenu: page, hideAddNewButton: false, callout: callout}))
                     .catch(err => response.send(err))
             }; break;
         }
@@ -57,13 +60,19 @@ class Teachers {
     }
 
     static post = (request, response) => {
-        if (!request.params.hasOwnProperty('id')) {
-            Models.newData('teachers', request.body)
-        } else {
-            Models.update('teachers', request.body)
-        }
 
-        response.status(302).redirect('/teachers')
+        if (!request.query.hasOwnProperty('id')) {
+        
+            Models.newData('teachers', request.body)
+                .then(red => response.redirect(302, red))
+                .catch(err => response.send(err))
+        
+        } else {
+
+            Models.update('teachers', request.body)
+                .then(red => response.redirect(302, red))
+                .catch(err => response.send(err))
+        }
     }
 
 }
@@ -78,13 +87,19 @@ class Students {
 
     static post = (request, response) => {
 
-        if (!request.params.hasOwnProperty('id')) {
-            Models.newData('students', request.body)
-        } else {
-            Models.update('students', request.body)
-        }
+        if (!request.query.hasOwnProperty('id')) {
 
-        response.redirect(302, '/students')
+            Models.newData('students', request.body)
+                .then(red => response.redirect(302, red))
+                .catch(err => response.send(err))
+        
+        } else {
+        
+            Models.update('students', request.body)
+                .then(red => response.redirect(302, red))
+                .catch(err => response.send(err))
+        
+        }
     }
 
 }
@@ -96,8 +111,15 @@ class Subjects {
     }
 
     static post = (request, response) => {
-        Models.newData('subjects', request.body)
-        response.redirect(302, '/subjects')
+        if (!request.query.hasOwnProperty('id')) {
+            Models.newData('subjects', request.body)
+                .then(red => response.redirect(302, red))
+                .catch(err => response.send(err))
+        } else {
+            Models.delete('subjects', request.query.id)
+                .then(red => response.redirect(302, red))
+                .catch(err => response.send(err))  
+        }
     }
 
 }
