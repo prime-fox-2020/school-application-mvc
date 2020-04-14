@@ -1,5 +1,5 @@
-const fs = require('fs')
 const pool = require('../config/connection.js')
+const fs = require('fs')
 
 class StudentsModel {
     static getListStudents(callback) {

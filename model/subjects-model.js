@@ -1,12 +1,21 @@
+const pool = require('../config/connection.js')
 const fs = require('fs')
 
 class SubjectsModel {
     static getListSubjects(callback) {
-        this.openFile((err, data) => {
+        // this.openFile((err, data) => {
+        //     if (err) {
+        //         callback(err, null)
+        //     } else {
+        //         callback(null, data)
+        //     }
+        // })
+        const querySubjects = `SELECT * FROM subjects ORDER BY id asc`
+        pool.query(querySubjects, (err, data) => {
             if (err) {
-                callback(err, null)
+                callback(err, null)   
             } else {
-                callback(null, data)
+                callback(null, data.rows)
             }
         })
     }
