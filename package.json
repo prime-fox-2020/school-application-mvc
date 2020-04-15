@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/prime-fox-2020/school-application-mvc/issues"
   },
-  "homepage": "https://github.com/prime-fox-2020/school-application-mvc#readme"
+  "homepage": "https://github.com/prime-fox-2020/school-application-mvc#readme",
+  "dependencies": {
+    "pg": "^8.0.2"
+  }
 }
