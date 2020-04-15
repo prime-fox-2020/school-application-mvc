@@ -1,14 +1,11 @@
-const fs = require('fs')
+const SubjectsModel = require('../models/subjectsmodel')
 
 class SubjectsController {
   static getSubjects (req, res) {
-    fs.readFile('./db/subjects.json', 'utf8', (err, data) => {
-        if (err) {throw err}
-        else {
-          const subjects = JSON.parse(data)
-          res.render('viewsubjects', { subjects })
-        }
-      })
+    SubjectsModel.subjects((err, data) => {
+      if (err) {throw err}
+      else (res.render('viewsubjects', {subjects: data}))
+    })
   }
 }
 

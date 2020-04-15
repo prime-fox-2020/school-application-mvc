@@ -1,14 +1,11 @@
-const fs = require('fs')
+const TeachersModel = require('../models/teachersmodel')
 
 class TeachersController {
   static getTeachers(req, res){
-    fs.readFile('./db/teachers.json', 'utf8', (err, data) => {
-        if (err) {throw err}
-        else {
-          const teachers = JSON.parse(data)
-          res.render('viewteachers', { teachers })
-        }
-      })
+    TeachersModel.teachers((err, data) => {
+      if (err) {throw err}
+      else (res.render('viewteachers', {teachers: data}))
+    })
   }
 }
 
