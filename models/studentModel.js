@@ -15,7 +15,7 @@ class StudentModel {
         const query = `
         INSERT INTO student (first_name, last_name, email, gender, birth_date) VALUES ($1, $2, $3, $4, $5)        
         `
-        const params = [req.body.fname, req.body.lname, req.body.email, req.body.gender, req.body.birthdate];
+        const params = [req.first_name, req.last_name, req.email, req.gender, req.birth_date];
         pool.query(query, params, err => {
             if (err) callback(err, null)
             else callback(null, `Student berhasil ditambahkan`)
@@ -37,7 +37,7 @@ class StudentModel {
 
     static editPost(req, callback) {
         const query = 'UPDATE student SET first_name = $1, last_name = $2, email = $3, gender = $4, birth_date = $5 WHERE id = $6';
-        const params = [req.body.first_name, req.body.last_name, req.body.email, req.body.gender, req.body.birth_date, req.params.id];
+        const params = [req.first_name, req.last_name, req.email, req.gender, req.birth_date, req.id];
         pool.query(query, params, (err) => {
             if (err) callback(err, null);
             else callback(null, `Student telah diedit`);

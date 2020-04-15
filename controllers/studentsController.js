@@ -21,12 +21,12 @@ class StudentController {
 
     static addPost(req, res) {
         const addStudent = {
-            id: Number(req.params.id),
-            first_name: req.params.fname,
-            last_name: req.params.lname,
-            email: req.params.email,
-            gender: req.params.gender,
-            birth_date: req.params.birthdate
+
+            first_name: req.body.fname,
+            last_name: req.body.lname,
+            email: req.body.email,
+            gender: req.body.gender,
+            birth_date: req.body.birthdate
         }
 
         StudentModel.addPost(addStudent, (err, data) => {
@@ -60,12 +60,12 @@ class StudentController {
 
     static editPost(req, res) {
         const updateStudent = {
-            id: Number(req.params.id),
-            first_name: req.params.fname,
-            last_name: req.params.lname,
-            email: req.params.email,
-            gender: req.params.gender,
-            birth_date: req.params.birthdate
+
+            first_name: req.body.fname,
+            last_name: req.body.lname,
+            email: req.body.email,
+            gender: req.body.gender,
+            birth_date: req.body.birthdate
         }
 
         StudentModel.editPost(updateStudent, (err, data) => {
