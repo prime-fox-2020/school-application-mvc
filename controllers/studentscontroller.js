@@ -21,8 +21,9 @@ class StudentsController {
   }
 
   static editStudents(req, res) {
-    StudentsModel.getEdit(req.params.id, (data) => {
-      res.render('editstudents', {studentData : data})
+    StudentsModel.getEdit(req.params.id, (err, data) => {
+      if (err) {throw err}
+      else {res.render('editstudents', {studentData : data})}
     })
   }
 
