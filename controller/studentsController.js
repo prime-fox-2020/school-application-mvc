@@ -1,56 +1,75 @@
+//get data from model
 const STM = require('../model/studentsModel');
 
-class StudentController {
+class StudentsController {
 
   static studentList(req, res) {
-    //baca dari model -> render
-    STM.getStudent((err, data) => {
-      if(err) res.render('error', {error: err})
-      else res.render('./students', {data, alert: req.query});
-    })
+    STM.getStudent()
+    .then(data => {
+         return res.render('students', {data})
+      })
+      .catch(err =>{
+         throw err
+      })
   }
 
   static studentEmail(req, res) {
-    //baca dari model -> render
-    STM.getStudentEmail(req.params.email, (err, data) => {
-      if(err) res.render('error', {error: err})
-      else res.render('./students', {data, alert: req.query});
-    })
+    STM.getEmail(req.params.email)
+    .then(data => {
+         return res.render('students', {data})
+      })
+      .catch(err =>{
+         throw err
+      })
+
   }
 
-  static studentAddGet () {
-    res.render('./add');
+  static add(req, res) {
+    res.render('add');
   }
 
-  static studentAddPost(req, res) {
-    STM.addStudent((err, data) => {
-    if(err) res.render('error', {error: err})
-    else res.render('./students', {data, alert: req.query})
-  })
-}
-//
-//   static studentEditGet(req, res) {
-//     STM.getStudentAdd((err, data) => {
-//     if(err) res.render('error', {error: err})
-//     else res.render('./students', {data, alert: req.query})
-//   })
-// }
-//
-//   static studentEditPost(req, res) {
-//     STM.getStudentAdd((err, data) => {
-//     if(err) res.render('error', {error: err})
-//     else res.render('./students', {data, alert: req.query})
-//   })
-// }
+  static addPost(req, res) {
+    STM.addStudent(req.body.firstName, req.body.lastName, req.body.email, req.body.gender, req.body.birthdate)
+    .then(data => {
+         return res.redirect('/students')
+      })
+      .catch(err =>{
+         throw err
+      })
+  }
+
+  static edit(req, res) {
+    STM.getStudentID(Number(req.params.id))
+    .then(data => {
+         return res.render('edit', {data})
+      })
+      .catch(err =>{
+         throw err
+      })
+
+  }
+
+  static editPost(req, res) {
+    STM.editStudent(req.params.id, req.body.firstName, req.body.lastName, req.body.email, req.body.gender, req.body.birthdate)
+    .then(data => {
+         return res.redirect('/students')
+      })
+      .catch(err =>{
+         throw err
+      })
+  }
 
   static deleteStudentById(req, res) {
-    STM.deleteStudent(req.params.id, (err, data) => {
-    if(err) res.render('error', {error: err})
-    else res.redirect('./students');
-  })
+    STM.deleteStudent(req.params.id)
+    .then(data => {
+         return res.redirect('/students')
+      })
+      .catch(err =>{
+         throw err
+      })
+  }
+
 }
 
-
-}
-
-module.exports = StudentController;
+//send data to routes (students.js)
+module.exports = StudentsController;

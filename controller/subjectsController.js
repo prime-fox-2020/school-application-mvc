@@ -3,19 +3,23 @@ const SM = require('../model/subjectsModel');
 class SubjectController {
 
   static subjectList(req, res) {
-    //baca dari model -> render
-    SM.getSubject((err, data) => {
-      if(err) res.render('error', {error: err})
-      else res.render('./subjects', {data, alert: req.query});
-    })
+    SM.getSubject()
+    .then(data => {
+         return res.render('subjects', {data})
+      })
+      .catch(err =>{
+         throw err
+      })
   }
 
   static subjectListId(req, res) {
-    //baca dari model -> render
-    SM.getSubjectId(req.params.id, (err, data) => {
-      if(err) res.render('error', {error: err})
-      else res.render('./subjects', {data, alert: req.query});
-    })
+    SM.getSubjectId(req.params.id)
+    .then(data => {
+         return res.render('subjects', {data})
+      })
+      .catch(err =>{
+         throw err
+      })
   }
 
 

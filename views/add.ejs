@@ -1,26 +1,20 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
-    <form>
-  <div class="form-group">
-    <label for="exampleInputEmail1">Email address</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-  </div>
-  <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1">
-  </div>
-  <div class="form-group form-check">
-    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
-
-  </body>
-</html>
+<%- include ('partials/header', {title: 'Add Student'})%>
+    <%- include ('partials/middle')%>
+    <form action="/students/add" method="post">
+      <label>First Name</label>
+      <input type="text" name="firstName" placeholder="First Name" ><br>
+      <label>Last Name</label>
+      <input type="text" name="lastName" placeholder="Last Name"><br>
+      <label>Email</label>
+      <input type="text" name="email" placeholder="Email" ><br>
+      <label>Gender</label>
+      <select name="gender">
+        <option value="" disabled selected>Select your gender!</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+      </select><br>
+      <label>Birthdate</label>
+      <input type="text" name="birthdate" value="" placeholder="DD MM YYYY"><br>
+      <button type="submit">Submit</button>
+    </form><br>
+<%- include ('partials/footer')%>

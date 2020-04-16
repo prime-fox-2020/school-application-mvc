@@ -1,6 +1,7 @@
-const pool = require('./config/connection.js');
-//
-pool.query(`
+const pool = require('./config/connection');
+
+// init table
+pool.query (`
   CREATE TABLE students (
     id SERIAL PRIMARY KEY,
     first_name VARCHAR,
@@ -9,8 +10,8 @@ pool.query(`
     gender VARCHAR,
     birthdate VARCHAR
   )
-  `,(err)=> {
-      if (err) console.log(err);
+  `, (err) => {
+    if (err) console.log(err);
 
     pool.query(`
       CREATE TABLE teachers (
@@ -20,37 +21,37 @@ pool.query(`
         email VARCHAR,
         gender VARCHAR
       )
-      `,(err)=> {
-        if(err) console.log(err);
+      `, (err) => {
+        if (err) console.log(err);
 
         pool.query(`
           CREATE TABLE subjects (
             id SERIAL PRIMARY KEY,
             subject_name VARCHAR
           )
-          `,(err, res)=> {
+          `, (err) => {
             if (err) console.log(err);
           })
       })
   })
 
-  // reset table
-  //
-  // pool.query(`
-  //   DROP TABLE teachers
-  //   `,(err, res) => {
-  //     if(err) console.log(err);
-  //
-  //     pool.query(`
-  //       DROP TABLE students
-  //       `,(err, res) => {
-  //         if(err) console.log(err);
-  //
-  //         pool.query(`
-  //           DROP TABLE subjects
-  //           `,(err, res)=> {
-  //             if(err) console.log(err);
-  //
-  //           })
-  //       })
-  //   })
+
+//delete TABLE
+//
+// pool.query(`
+//   DROP TABLE students
+//   `,(err, res) => {
+//     if(err) console.log(err);
+//
+//     pool.query(`
+//       DROP TABLE teachers
+//       `,(err, res) => {
+//         if(err) console.log(err);
+//
+//         pool.query(`
+//           DROP TABLE subjects
+//           `, (err, res) => {
+//             if(err) console.log(err);
+//           })
+//       })
+//   })

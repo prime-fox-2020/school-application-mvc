@@ -1,11 +1,11 @@
 class HomeController {
+
   static getHome(req, res) {
+    //go to (views) home.ejs
     res.render('home');
   }
 
-  static notFound(req, res) {
-    res.render('error', {error: '404 - Page not found!'})
-  }
 }
 
+//Send data to routes
 module.exports = HomeController;

@@ -1,1 +1,1 @@
-# School Application MVC Architecture + PG
+# School Application With Partial And Refactored
